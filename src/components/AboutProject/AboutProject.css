@@ -17,8 +17,9 @@
 
 .about__items {
   padding: 70px 0 110px;
-  margin: 0;
-  display: flex;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .about__item {
