@@ -1,4 +1,5 @@
 .profile {
+
 }
 
 .profile__container {
@@ -90,6 +91,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal;
+
 }
 
 .profile__button-logout {
@@ -103,4 +105,34 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__title {
+    margin-top: 236px;
+    margin-bottom: 96px;
+  }
+
+  .profile__buttons {
+    margin-top: 210px;
+  }
+
+  .profile__form {
+  max-width: 396px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .profile__title {
+    margin-top: 70px;
+    margin-bottom: 80px;
+  }
+
+  .profile__buttons {
+    margin-top: 379px;
+  }
+
+  .profile__form {
+    max-width: 260px;
+    }
 }

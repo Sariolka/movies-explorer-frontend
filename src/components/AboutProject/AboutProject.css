@@ -20,6 +20,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 30px;
 }
 
 .about__item {
@@ -80,4 +81,23 @@
   font-style: normal;
   font-weight: 500;
   line-height: 17px;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 90px 50px;
+  }
+
+  .about__items {
+    padding-top: 70px;
+    padding-bottom: 93px;
+  }
+.about__item-title {
+  font-size: 20px;
+  letter-spacing: -0.8px;
+}
+  .about__item-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+  }
 }
