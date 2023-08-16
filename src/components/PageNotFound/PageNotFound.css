@@ -1,41 +1,39 @@
 .page-notfound {
-display: flex;
-flex-direction: column;
-margin: auto;
-  
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 
 .page-notfound__title {
-    color: #000;
-    text-align: center;
-    font-family: Inter;
-    font-size: 140px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 246px 0 0;
-    
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 140px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 246px 0 0;
 }
 
 .page-notfound__info {
-    color: #000;
-    text-align: center;
-    font-family: Inter;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    margin: 5px 0 0;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 5px 0 0;
 }
 
 .page-notfound__link {
-    color: #3456F3;
-    text-align: center;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-decoration: none;
-    margin: 184px 0 0;
+  color: #3456f3;
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-decoration: none;
+  margin: 184px 0 0;
 }
