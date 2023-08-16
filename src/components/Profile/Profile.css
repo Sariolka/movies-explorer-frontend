@@ -1,0 +1,106 @@
+.profile {
+}
+
+.profile__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__title {
+  margin: 74px auto 123px;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile__form {
+  max-width: 410px;
+  display: flex;
+  width: 100%;
+  max-width: 410px;
+  align-items: stretch;
+  flex-direction: column;
+  margin: 0 auto;
+  align-self: center;
+}
+
+.profile__value {
+}
+
+.profile__label {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e8e8e8;
+  align-items: center;
+}
+
+.profile__name {
+  color: #000;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin: 0;
+}
+
+.profile__label:last-of-type {
+  border: none;
+  padding: 16px 0 0;
+}
+
+.profile__input {
+  border: none;
+  color: #000;
+  text-align: right;
+  font-family: Inter;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  width: 90%;
+}
+
+.profile__input:focus {
+  outline: 0;
+  border-bottom: 1px solid #4285f4;
+}
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 220px;
+  padding-bottom: 70px;
+  gap: 16px;
+}
+
+.profile__button-submit {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.profile__button-logout {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: #ff3055;
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
