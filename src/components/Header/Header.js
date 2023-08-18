@@ -1,18 +1,17 @@
 import React from "react";
 import "./Header.css";
-import logo from "../../images/logo.svg";
-import { Link } from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
+import { useLocation } from "react-router-dom";
+import LogoHeader from "../LogoHeader/LogoHeader";
 
-function Header() {
+function Header({ loggedIn }) {
+  const location = useLocation();
   return (
-    <header className="header header_dark">
-      <Link to="/" className="header__logo">
-        <img src={logo} alt="Логотип сайта" />
-      </Link>
-      <nav className="header__nav">
-        <Link className="header__link_reg">Регистрация</Link>
-        <Link className="header__link_login">Войти</Link>
-      </nav>
+    <header
+      className={location.pathname === "/" ? `header header_dark` : "header"}
+    >
+     <LogoHeader />
+      <Navigation loggedIn={loggedIn} />
     </header>
   );
 }
