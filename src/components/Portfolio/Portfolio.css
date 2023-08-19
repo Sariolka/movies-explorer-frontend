@@ -5,10 +5,7 @@
 
 .portfolio__title {
   color: #a0a0a0;
-  font-feature-settings: "clig" off, "liga" off;
-  font-family: Inter;
   font-size: 18px;
-  font-style: normal;
   font-weight: 400;
   line-height: 20px;
   margin: 100px 0 50px;
@@ -17,9 +14,7 @@
 .portfolio__list {
   list-style: none;
   color: #000;
-  font-family: Inter;
   font-size: 30px;
-  font-style: normal;
   font-weight: 400;
   line-height: 60px;
   letter-spacing: -1.2px;
@@ -35,9 +30,7 @@
 .portfolio__link {
   text-decoration: none;
   color: #000;
-  font-family: Inter;
   font-size: 30px;
-  font-style: normal;
   font-weight: 400;
   line-height: 60px;
   letter-spacing: -1.2px;
@@ -49,16 +42,20 @@
   border: none;
   padding-bottom: 0;
 }
+
 @media screen and (max-width: 768px) {
   .portfolio {
     max-width: calc(100% - 100px);
   }
+
   .portfolio__title {
     margin-top: 90px;
   }
+
   .portfolio__list {
     margin-bottom: 90px;
   }
+
   .portfolio__link {
     font-size: 28px;
     line-height: 50px;
@@ -69,6 +66,7 @@
   .portfolio {
     max-width: calc(100% - 28px);
   }
+
   .portfolio__title {
     font-size: 14px;
     line-height: 20px;
@@ -79,14 +77,17 @@
   .portfolio__list {
     margin-bottom: 70px;
   }
+
   .portfolio__link {
     font-size: 18px;
     line-height: 28px; /* 155.556% */
     letter-spacing: -0.72px;
   }
+
   .portfolio__item:first-of-type {
     padding-top: 0;
   }
+
   .portfolio__item {
     padding-top: 20px;
   }

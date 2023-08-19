@@ -1,14 +1,20 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Profile.css";
-import Header from "../Header/Header";
+import LogoHeader from "../LogoHeader/LogoHeader";
+import Navigation from "../Navigation/Navigation";
 
-function Profile() {
+function Profile(l) {
   const [name, setName] = React.useState("Виталий");
   const [email, setEmail] = React.useState("pochta@yandex.ru");
+  const [isChanged, setIsChanged] = React.useState(false);
 
   return (
     <section className="profile">
-      <Header />
+      <nav className="profile__nav">
+        <LogoHeader />
+        <Navigation loggedIn={true} />
+      </nav>
       <div className="profile__container">
         <h2 className="profile__title">Привет, {name}! </h2>
         <form className="profile__form">
@@ -41,10 +47,16 @@ function Profile() {
             </label>
           </div>
           <div className="profile__buttons">
-            <button className="profile__button-submit">Редактировать</button>
-            <button className="profile__button-logout">
-              Выйти из аккаунта
-            </button>
+            {!isChanged ? (
+              <>
+                <button className="profile__button-edit">Редактировать</button>
+                <Link className="profile__button-logout" to="/signin">
+                  Выйти из аккаунта
+                </Link>
+              </>
+            ) : (
+              <button className="profile__button-submit">Сохранить</button>
+            )}
           </div>
         </form>
       </div>

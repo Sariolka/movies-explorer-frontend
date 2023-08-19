@@ -12,10 +12,7 @@
 .promo__title {
   margin: 0;
   color: #fff;
-  font-feature-settings: "clig" off, "liga" off;
-  font-family: Inter;
   font-size: 50px;
-  font-style: normal;
   font-weight: 400;
   line-height: 58px;
   max-width: 640px;
@@ -26,10 +23,7 @@
   margin-bottom: 146px;
   max-width: 310px;
   color: #fff;
-  font-feature-settings: "clig" off, "liga" off;
-  font-family: Inter;
   font-size: 13px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   opacity: 0.5;
@@ -43,9 +37,7 @@
   height: 36px;
   flex-shrink: 0;
   color: #fff;
-  font-family: Inter;
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: 16px;
   padding: 10px 20px;
@@ -93,8 +85,8 @@
   .promo__title {
     padding-top: 44px;
     font-size: 30px;
-    line-height: 38px; /* 126.667% */
-letter-spacing: -1.2px;
+    line-height: 38px;
+    letter-spacing: -1.2px;
   }
 
   .promo__subtitle {

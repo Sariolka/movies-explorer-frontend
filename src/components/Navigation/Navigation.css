@@ -14,9 +14,7 @@
 .nav__link-reg {
   color: #fff;
   text-align: right;
-  font-family: Inter;
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: 16px;
   text-decoration: none;
@@ -29,9 +27,7 @@
   text-decoration: none;
   color: #000;
   text-align: center;
-  font-family: Inter;
   font-size: 12px;
-  font-style: normal;
   font-weight: 500;
   line-height: 16px;
   padding: 8px 20px;
@@ -40,10 +36,7 @@
 
 .nav__btn-account {
   color: #000;
-  font-feature-settings: "clig" off, "liga" off;
-  font-family: Inter;
   font-size: 13px;
-  font-style: normal;
   font-weight: 500;
   line-height: 12px;
   border: none;
@@ -56,6 +49,10 @@
   cursor: pointer;
   position: relative;
   text-align: left;
+}
+
+.nav__btn-account_grey {
+  background-color: #fff;
 }
 
 .nav__btn-img {
@@ -86,9 +83,7 @@
   text-decoration: none;
   color: #fff;
   text-align: right;
-  font-family: Inter;
   font-size: 13px;
-  font-style: normal;
   font-weight: 400;
   line-height: 18px;
 }
@@ -96,9 +91,7 @@
 .nav__link-saved-movies {
   color: #fff;
   text-align: right;
-  font-family: Inter;
   font-size: 13px;
-  font-style: normal;
   font-weight: 400;
   line-height: 18px;
   text-decoration: none;

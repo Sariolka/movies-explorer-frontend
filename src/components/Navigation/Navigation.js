@@ -11,16 +11,36 @@ function Navigation({ loggedIn }) {
       {loggedIn ? (
         <>
           <div className="nav__movies">
-            <Link to="/movies" className= {location.pathname === "/" ? 'nav__link-movies' : `nav__link-movies nav__link-movies_black`}>
+            <Link
+              to="/movies"
+              className={
+                location.pathname === "/"
+                  ? "nav__link-movies"
+                  : `nav__link-movies nav__link-movies_black`
+              }
+            >
               Фильмы
             </Link>
-            <Link to="/saved-movies" className={location.pathname === "/" ? 'nav__link-saved-movies' : `nav__link-saved-movies nav__link-saved-movies_black`}>
+            <Link
+              to="/saved-movies"
+              className={
+                location.pathname === "/"
+                  ? "nav__link-saved-movies"
+                  : `nav__link-saved-movies nav__link-saved-movies_black`
+              }
+            >
               Сохранённые фильмы
             </Link>
-         </div>
+          </div>
           <div>
             <Link to="/profile">
-              <button className="nav__btn-account">
+              <button
+                className={
+                  location.pathname === "/"
+                    ? "nav__btn-account"
+                    : `nav__btn-account nav__btn-account_grey`
+                }
+              >
                 Аккаунт
                 <img
                   className="nav__btn-img"
@@ -38,8 +58,12 @@ function Navigation({ loggedIn }) {
         </>
       ) : (
         <div className="nav__links">
-          <Link to="/signin" className="nav__link-reg">Регистрация</Link>
-          <Link to="/signup" className="nav__link-login">Войти</Link>
+          <Link to="/signup" className="nav__link-reg">
+            Регистрация
+          </Link>
+          <Link to="/signin" className="nav__link-login">
+            Войти
+          </Link>
         </div>
       )}
     </nav>

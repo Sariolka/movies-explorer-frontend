@@ -6,9 +6,7 @@
 
 .techs__heading {
   color: #000;
-  font-family: Inter;
   font-size: 22px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.88px;
@@ -28,9 +26,7 @@
 .techs__title {
   color: #000;
   text-align: center;
-  font-family: Inter;
   font-size: 50px;
-  font-style: normal;
   font-weight: 400;
   line-height: 58px;
   letter-spacing: -2px;
@@ -40,11 +36,9 @@
 .techs__subtitle {
   color: #000;
   text-align: center;
-  font-family: Inter;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  line-height: 20px;
   letter-spacing: -0.56px;
   margin: 0 auto 100px;
   max-width: 460px;
@@ -63,9 +57,7 @@
   list-style: none;
   color: #000;
   text-align: center;
-  font-family: Inter;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.56px;
@@ -79,15 +71,18 @@
     padding-top: 90px;
     padding-bottom: 90px;
   }
+
   .techs__container {
     margin-left: 50px;
     margin-right: 50px;
   }
+
   .techs__list {
     margin-left: 60px;
     margin-right: 60px;
     grid-template-columns: repeat(4, 84px);
   }
+
   .techs__list-item {
     padding-left: 16px;
     padding-right: 16px;
@@ -100,27 +95,32 @@
     padding-top: 70px;
     padding-bottom: 70px;
   }
+
   .techs__heading {
     font-size: 18px;
     letter-spacing: -0.72px;
     padding-bottom: 28px;
   }
+
   .techs__container {
     margin-left: 18px;
     margin-right: 18px;
   }
+
   .techs__title {
     font-size: 30px;
     letter-spacing: -1.2px;
     margin-top: 60px;
     margin-bottom: 24px;
   }
+
   .techs__subtitle {
     font-size: 11px;
     line-height: 16px;
     letter-spacing: -0.44px;
     margin-bottom: 50px;
   }
+
   .techs__list {
     grid-template-columns: repeat(2, 84px);
   }

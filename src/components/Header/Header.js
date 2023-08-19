@@ -10,7 +10,7 @@ function Header({ loggedIn }) {
     <header
       className={location.pathname === "/" ? `header header_dark` : "header"}
     >
-     <LogoHeader />
+      <LogoHeader />
       <Navigation loggedIn={loggedIn} />
     </header>
   );

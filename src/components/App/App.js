@@ -1,3 +1,4 @@
+import "./App.css";
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Main from "../Main/Main";
@@ -7,7 +8,7 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import "./App.css";
+
 
 function App() {
   return (

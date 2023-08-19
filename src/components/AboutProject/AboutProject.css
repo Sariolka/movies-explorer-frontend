@@ -5,9 +5,7 @@
 .about__title {
   margin: 0;
   color: #000;
-  font-family: Inter;
   font-size: 22px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.88px;
@@ -30,9 +28,7 @@
 .about__item-title {
   margin: 0;
   color: #000;
-  font-family: Inter;
   font-size: 20px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
   letter-spacing: -0.8px;
@@ -40,9 +36,7 @@
 
 .about__item-subtitle {
   color: #000;
-  font-family: Inter;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
   line-height: 20px;
   margin: 26px 0 0;
@@ -60,9 +54,7 @@
   height: 27px;
   padding-top: 9px;
   color: #000;
-  font-family: Inter;
   font-size: 14px;
-  font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
@@ -76,9 +68,7 @@
   padding-top: 14px;
   color: #a0a0a0;
   text-align: center;
-  font-family: Inter;
   font-size: 14px;
-  font-style: normal;
   font-weight: 500;
   line-height: 17px;
 }
@@ -92,10 +82,12 @@
     padding-top: 70px;
     padding-bottom: 93px;
   }
-.about__item-title {
-  font-size: 20px;
-  letter-spacing: -0.8px;
-}
+
+  .about__item-title {
+    font-size: 20px;
+    letter-spacing: -0.8px;
+  }
+
   .about__item-subtitle {
     font-size: 12px;
     line-height: 18px;
@@ -106,29 +98,35 @@
   .about {
     padding: 70px 18px 69px;
   }
-.about__title {
-  padding-bottom: 28px;
-}
+
+  .about__title {
+    padding-bottom: 28px;
+  }
+
   .about__items {
     padding-top: 60px;
     padding-bottom: 60px;
     grid-template-columns: 1fr;
     gap: 56px;
   }
-.about__item-title {
-  font-size: 18px;
-  letter-spacing: -0.72px;
-}
+
+  .about__item-title {
+    font-size: 18px;
+    letter-spacing: -0.72px;
+  }
+
   .about__item-subtitle {
     font-size: 11px;
     line-height: 16px;
   }
+
   .about__time-text {
     padding-top: 10px;
-    font-size: 11px; 
+    font-size: 11px;
   }
+
   .about__time-weeks {
-    font-size: 11px; 
+    font-size: 11px;
     padding-top: 11px;
   }
 }
