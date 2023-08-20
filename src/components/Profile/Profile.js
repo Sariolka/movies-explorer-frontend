@@ -4,7 +4,7 @@ import "./Profile.css";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 
-function Profile(l) {
+function Profile({loggedIn}) {
   const [name, setName] = React.useState("Виталий");
   const [email, setEmail] = React.useState("pochta@yandex.ru");
   const [isChanged, setIsChanged] = React.useState(false);
@@ -13,7 +13,7 @@ function Profile(l) {
     <section className="profile">
       <nav className="profile__nav">
         <LogoHeader />
-        <Navigation loggedIn={true} />
+        <Navigation loggedIn={loggedIn} />
       </nav>
       <div className="profile__container">
         <h2 className="profile__title">Привет, {name}! </h2>

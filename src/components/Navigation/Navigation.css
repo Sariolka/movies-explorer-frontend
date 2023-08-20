@@ -34,44 +34,6 @@
   cursor: pointer;
 }
 
-.nav__btn-account {
-  color: #000;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 12px;
-  border: none;
-  background-color: #2be080;
-  border-radius: 40px;
-  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08);
-  padding: 9.5px 0 9.5px 11px;
-  width: 100px;
-  height: 32px;
-  cursor: pointer;
-  position: relative;
-  text-align: left;
-}
-
-.nav__btn-account_grey {
-  background-color: #fff;
-}
-
-.nav__btn-img {
-  width: 10.383px;
-  height: 10.669px;
-  position: absolute;
-  right: 10.2px;
-  z-index: 1;
-}
-
-.nav__btn-circle {
-  width: 26px;
-  height: 26px;
-  position: absolute;
-  z-index: 0;
-  right: 3px;
-  bottom: 3px;
-}
-
 .nav__movies {
   display: flex;
   align-items: center;
@@ -88,6 +50,10 @@
   line-height: 18px;
 }
 
+.nav__link-movies_active {
+  font-weight: 500;
+}
+
 .nav__link-saved-movies {
   color: #fff;
   text-align: right;
@@ -95,6 +61,52 @@
   font-weight: 400;
   line-height: 18px;
   text-decoration: none;
+}
+
+.nav__link-saved-movies_active {
+  font-weight: 500;
+}
+
+.nav__link-movies_black {
+  color: #000;
+}
+
+.nav__link-saved-movies_black {
+  color: #000;
+}
+
+.nav__btn-burger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav__link-saved-movies {
+    display: none;
+  }
+
+  .nav__link-movies {
+    display: none;
+  }
+
+  .nav__btn-burger {
+    display: block;
+    background-image: url(../../images/burger-white.svg);
+    width: 44px;
+    height: 44px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    background-position: center;
+    cursor: pointer;
+  }
+
+  .nav__btn-burger_dark {
+    background-image: url(../../images/burger.svg);
+  }
+
+  .nav__movies {
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width: 460px) {
@@ -106,12 +118,9 @@
   .nav__link-reg {
     font-size: 10px;
   }
-}
 
-.nav__link-movies_black {
-  color: #000;
-}
-
-.nav__link-saved-movies_black {
-  color: #000;
+  .nav__btn-burger {
+    width: 40px;
+    height: 43px;
+  }
 }
