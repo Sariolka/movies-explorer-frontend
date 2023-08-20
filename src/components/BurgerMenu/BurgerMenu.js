@@ -3,7 +3,7 @@ import { NavLink, Link } from "react-router-dom";
 import "./BurgerMenu.css";
 import ButtonProfile from "../ButtonProfile/ButtonProfile";
 import { usePopupClose } from "../../hooks/usePopupClose";
-function BurgerMenu({onClose, loggedIn, isOpenNavMenu}) {
+function BurgerMenu({ onClose, loggedIn, isOpenNavMenu }) {
   usePopupClose(isOpenNavMenu, onClose);
   return (
     <section className="burger">
@@ -21,10 +21,12 @@ function BurgerMenu({onClose, loggedIn, isOpenNavMenu}) {
               Сохранённые фильмы
             </NavLink>
             <Link to="/profile">
-            <ButtonProfile loggedIn={loggedIn} isOpenNavMenu={isOpenNavMenu} />
-          </Link>
+              <ButtonProfile
+                loggedIn={loggedIn}
+                isOpenNavMenu={isOpenNavMenu}
+              />
+            </Link>
           </nav>
-          
         </div>
       </div>
     </section>

@@ -70,6 +70,7 @@
   .footer__container {
     flex-direction: column;
     padding-top: 30px;
+    align-items: center;
   }
 
   .footer__links {

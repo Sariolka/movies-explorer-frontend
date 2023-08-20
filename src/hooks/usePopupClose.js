@@ -5,7 +5,6 @@ export function usePopupClose(isOpenNavMenu, onClose) {
     if (!isOpenNavMenu) return;
 
     const handleOverlay = (event) => {
-      
       if (event.target.classList.contains("burger__overlay")) {
         onClose();
       }
@@ -20,11 +19,9 @@ export function usePopupClose(isOpenNavMenu, onClose) {
     document.addEventListener("keydown", handleEscape);
     document.addEventListener("mousedown", handleOverlay);
 
-   
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleOverlay);
     };
-   
   }, [isOpenNavMenu, onClose]);
 }
