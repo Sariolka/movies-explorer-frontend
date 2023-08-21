@@ -43,6 +43,11 @@
   padding: 10px 20px;
   text-decoration: none;
   cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.promo__link:hover {
+  opacity: 0.7;
 }
 
 .promo__image {

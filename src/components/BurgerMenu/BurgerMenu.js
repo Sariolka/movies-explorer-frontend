@@ -3,6 +3,8 @@ import { NavLink, Link } from "react-router-dom";
 import "./BurgerMenu.css";
 import ButtonProfile from "../ButtonProfile/ButtonProfile";
 import { usePopupClose } from "../../hooks/usePopupClose";
+
+
 function BurgerMenu({ onClose, loggedIn, isOpenNavMenu }) {
   usePopupClose(isOpenNavMenu, onClose);
   return (

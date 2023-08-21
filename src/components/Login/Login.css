@@ -1,0 +1,8 @@
+.login {
+    margin: 70px auto;
+    max-width: 396px;
+    display: flex;
+    flex-direction: column;
+    color: #000;
+  }
+  

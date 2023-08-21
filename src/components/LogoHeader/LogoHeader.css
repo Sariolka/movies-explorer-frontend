@@ -5,3 +5,9 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+@media screen and (max-width: 460px) {
+  .logo__header_center {
+    align-self: center;
+  }
+}

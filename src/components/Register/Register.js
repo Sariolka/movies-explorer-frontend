@@ -33,7 +33,7 @@ function Register() {
         buttonTitle="Зарегистрироваться"
         link={link}
       >
-        <fieldset className="form__fieldset">
+        <fieldset className={`form__fieldset form__fieldset-reg`}>
           <label className="form__label" for="name">
             Имя
           </label>

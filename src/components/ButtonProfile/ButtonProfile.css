@@ -13,6 +13,11 @@
   cursor: pointer;
   position: relative;
   text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.btn__account:hover {
+  opacity: 0.8;
 }
 
 .btn__account_grey {
@@ -41,7 +46,7 @@
     display: none;
   }
 
-  .btn__account_show{
+  .btn__account_show {
     display: flex;
     position: absolute;
     left: calc(50% - 50px);

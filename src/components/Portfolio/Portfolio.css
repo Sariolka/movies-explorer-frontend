@@ -36,6 +36,12 @@
   letter-spacing: -1.2px;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+  transition: opasity 0.3s ease;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
 }
 
 .portfolio__item:last-of-type {

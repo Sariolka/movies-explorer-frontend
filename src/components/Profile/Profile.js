@@ -9,6 +9,10 @@ function Profile({loggedIn}) {
   const [email, setEmail] = React.useState("pochta@yandex.ru");
   const [isChanged, setIsChanged] = React.useState(false);
 
+  function handleChange() {
+    setIsChanged(true);
+  }
+
   return (
     <section className="profile">
       <nav className="profile__nav">
@@ -55,7 +59,7 @@ function Profile({loggedIn}) {
                 </Link>
               </>
             ) : (
-              <button className="profile__button-submit">Сохранить</button>
+              <button className="profile__button-submit" onClick={handleChange}>Сохранить</button>
             )}
           </div>
         </form>

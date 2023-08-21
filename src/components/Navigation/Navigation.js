@@ -4,10 +4,11 @@ import "./Navigation.css";
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import ButtonProfile from "../ButtonProfile/ButtonProfile";
 
-
 function Navigation({ loggedIn }) {
   const location = useLocation();
   const [isOpenNavMenu, setIsOpenNavMenu] = React.useState(false);
+
+  loggedIn = true;
 
   function togglePopupMenu() {
     setIsOpenNavMenu(!isOpenNavMenu);
@@ -15,7 +16,7 @@ function Navigation({ loggedIn }) {
 
   return (
     <nav className={"nav"}>
-      {!loggedIn ? (
+      {loggedIn ? (
         <>
           <div className="nav__movies">
             <Link
@@ -43,25 +44,32 @@ function Navigation({ loggedIn }) {
             >
               Сохранённые фильмы
             </Link>
-            {!isOpenNavMenu  ? (
-            <button
-              type="button"
-              aria-label="Открыть меню"
-              className={`${
-                !isOpenNavMenu 
-                  ? "nav__btn-burger"
-                  : `nav__btn-burger nav__btn-close`
-              } ${
-                location.pathname === "/"
-                  ? `nav__btn-burger`
-                  : `nav__btn-burger nav__btn-burger_dark`
-              }`}
-              onClick={togglePopupMenu}
-            ></button>) : <BurgerMenu onClose={togglePopupMenu} loggedIn={loggedIn} isOpenNavMenu = {isOpenNavMenu}/>}
+            {!isOpenNavMenu ? (
+              <button
+                type="button"
+                aria-label="Открыть меню"
+                className={`${
+                  !isOpenNavMenu
+                    ? "nav__btn-burger"
+                    : `nav__btn-burger nav__btn-close`
+                } ${
+                  location.pathname === "/"
+                    ? `nav__btn-burger`
+                    : `nav__btn-burger nav__btn-burger_dark`
+                }`}
+                onClick={togglePopupMenu}
+              ></button>
+            ) : (
+              <BurgerMenu
+                onClose={togglePopupMenu}
+                loggedIn={loggedIn}
+                isOpenNavMenu={isOpenNavMenu}
+              />
+            )}
           </div>
           <div>
             <Link to="/profile">
-             <ButtonProfile />
+              <ButtonProfile />
             </Link>
           </div>
         </>
