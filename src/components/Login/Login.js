@@ -5,7 +5,17 @@ import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Login() {
+function Login({ onLogin }) {
+  const { formValues, handleChange, isValid, showErrors } = useValidation({});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin({
+      email: formValues.email,
+      password: formValues.password,
+    });
+  }
+
   const link = (
     <p className="form__span">
       Ещё не зарегистрированы?
@@ -14,20 +24,19 @@ function Login() {
       </Link>
     </p>
   );
-  const {
-    formValues,
-    handleChange,
-    setFormValues,
-    isValid,
-    resetForm,
-    setIsValid,
-    showErrors,
-  } = useValidation({});
 
   return (
     <section className="login">
       <LogoHeader />
-      <Form name="login" title="Рады видеть!" buttonTitle="Войти" link={link}>
+      <Form
+        name="login"
+        title="Рады видеть!"
+        buttonTitle="Войти"
+        link={link}
+        isValid={isValid}
+        onSubmit={handleSubmit}
+        isDisabled={!isValid}
+      >
         <fieldset className={`form__fieldset form__fieldset-log`}>
           <label className="form__label" for="email">
             E-mail
@@ -37,14 +46,17 @@ function Login() {
             type="email"
             name="email"
             className={`form__input ${
-              showErrors.name && "form__input_type_invalid"
+              showErrors.email && "form__input_type_invalid"
             }`}
             placeholder="Введите Email"
-            minLength={2}
+            minLength={4}
             maxLength={200}
             required
+            onChange={handleChange}
           />
-          <span className="form__error">Что-то пошло не так...</span>
+          {showErrors.email && (
+            <span className="form__error">Что-то пошло не так...</span>
+          )}
           <label className="form__label" for="password">
             Пароль
           </label>
@@ -52,13 +64,18 @@ function Login() {
             id="password"
             type="password"
             name="password"
-            className="form__input"
+            className={`form__input ${
+              showErrors.password && "form__input_type_invalid"
+            }`}
             placeholder="Введите пароль"
-            minLength={2}
+            minLength={6}
             maxLength={40}
             required
+            onChange={handleChange}
           />
-          <span className="form__error">Что-то пошло не так...</span>
+          {showErrors.password && (
+            <span className="form__error">Что-то пошло не так...</span>
+          )}
         </fieldset>
       </Form>
     </section>

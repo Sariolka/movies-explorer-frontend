@@ -15,7 +15,7 @@ function Navigation({ loggedIn }) {
   }
 
   return (
-    <nav className={"nav"}>
+    <nav className="nav">
       {loggedIn ? (
         <>
           <div className="nav__movies">

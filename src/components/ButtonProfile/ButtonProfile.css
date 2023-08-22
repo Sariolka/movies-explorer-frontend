@@ -1,4 +1,4 @@
-.btn__account {
+.btn {
   color: #000;
   font-size: 13px;
   font-weight: 500;
@@ -16,11 +16,11 @@
   transition: opacity 0.3s ease;
 }
 
-.btn__account:hover {
+.btn:hover {
   opacity: 0.8;
 }
 
-.btn__account_grey {
+.btn_grey {
   background-color: #fff;
 }
 
@@ -42,11 +42,11 @@
 }
 
 @media screen and (max-width: 768px) {
-  .btn__account {
+  .btn {
     display: none;
   }
 
-  .btn__account_show {
+  .btn_show {
     display: flex;
     position: absolute;
     left: calc(50% - 50px);
@@ -55,7 +55,7 @@
 }
 
 @media screen and (max-width: 460px) {
-  .btn__account_show {
+  .btn_show {
     bottom: 46px;
   }
 }

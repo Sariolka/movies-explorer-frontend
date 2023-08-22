@@ -10,8 +10,8 @@ function LogoHeader() {
       to="/"
       className={
         location.pathname === "/signin" || location.pathname === "/signup"
-          ? `logo__header logo__header_center`
-          : "logo__header"
+          ? `logo logo__center`
+          : "logo"
       }
     >
       <img src={logo} alt="Логотип сайта" />

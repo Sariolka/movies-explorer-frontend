@@ -9,11 +9,9 @@ function ButtonProfile({ isOpenNavMenu }) {
 
   return (
     <button
-      className={` ${
-        location.pathname === "/"
-          ? `btn__account`
-          : `btn__account btn__account_grey`
-      } ${isOpenNavMenu && `btn__account_show btn__account_grey`}`}
+      className={` ${location.pathname === "/" ? `btn` : `btn btn_grey`} ${
+        isOpenNavMenu && `btn_show btn_grey`
+      }`}
     >
       Аккаунт
       <img className="btn__img" src={user} alt="иконка пользователя"></img>

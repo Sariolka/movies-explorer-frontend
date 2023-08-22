@@ -5,7 +5,18 @@ import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Register() {
+function Register({ onRegister }) {
+  const { formValues, handleChange, isValid, showErrors } = useValidation({});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister({
+      name: formValues.name,
+      email: formValues.email,
+      password: formValues.password,
+    });
+  }
+
   const link = (
     <p className="form__span">
       Уже зарегистрированы?
@@ -14,15 +25,6 @@ function Register() {
       </Link>
     </p>
   );
-  const {
-    formValues,
-    handleChange,
-    setFormValues,
-    isValid,
-    resetForm,
-    setIsValid,
-    showErrors,
-  } = useValidation({});
 
   return (
     <section className="register">
@@ -32,8 +34,12 @@ function Register() {
         title="Добро пожаловать!"
         buttonTitle="Зарегистрироваться"
         link={link}
+        isValid={isValid}
+        onSubmit={handleSubmit}
+        isDisabled={!isValid}
       >
         <fieldset className={`form__fieldset form__fieldset-reg`}>
+          <div className="form__value">
           <label className="form__label" for="name">
             Имя
           </label>
@@ -48,8 +54,13 @@ function Register() {
             minLength={2}
             maxLength={40}
             required
+            onChange={handleChange}
           />
-          <span className="form__error">Что-то пошло не так...</span>
+          {showErrors.name && (
+            <span className="form__error">Что-то пошло не так...</span>
+          )}
+          </div>
+          <div className="form__value">
           <label className="form__label" for="email">
             E-mail
           </label>
@@ -60,10 +71,15 @@ function Register() {
             name="email"
             required
             placeholder="Введите Email"
-            minLength={2}
+            minLength={4}
             maxLength={200}
+            onChange={handleChange}
           />
-          <span className="form__error">Что-то пошло не так...</span>
+          {showErrors.email && (
+            <span className="form__error">Что-то пошло не так...</span>
+          )}
+          </div>
+          <div className="form__value">
           <label className="form__label" for="password">
             Пароль
           </label>
@@ -73,11 +89,15 @@ function Register() {
             name="password"
             className="form__input"
             placeholder="Придумайте пароль"
-            minLength={2}
+            minLength={6}
             maxLength={40}
             required
+            onChange={handleChange}
           />
-          <span className="form__error">Что-то пошло не так...</span>
+          {showErrors.password && (
+            <span className="form__error">Что-то пошло не так...</span>
+          )}
+          </div>
         </fieldset>
       </Form>
     </section>

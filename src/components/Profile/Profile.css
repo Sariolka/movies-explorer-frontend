@@ -60,9 +60,12 @@
   width: 90%;
 }
 
+.profile__input_type_invalid {
+  color: #ff3055;
+}
+
 .profile__input:focus {
   outline: 0;
-  border-bottom: 1px solid #4285f4;
 }
 
 .profile__buttons {
@@ -130,7 +133,7 @@
 .profile__button-submit_inactive {
   border-radius: 3px;
   background-color: #f8f8f8;
-  cursor: none;
+  color: #C2C2C2; 
 }
 
 @media screen and (max-width: 768px) {
