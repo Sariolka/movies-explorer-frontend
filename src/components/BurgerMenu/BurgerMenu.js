@@ -13,13 +13,13 @@ function BurgerMenu({ onClose, loggedIn, isOpenNavMenu }) {
         <div className="burger__container">
           <button className="burger__btn-close" onClick={onClose}></button>
           <nav className="burger__menu">
-            <NavLink to="/" className="burger__link">
+            <NavLink to="/" className="burger__menu-link">
               Главная
             </NavLink>
-            <NavLink to="/movies" className="burger__link">
+            <NavLink to="/movies" className="burger__menu-link">
               Фильмы
             </NavLink>
-            <NavLink to="/saved-movies" className="burger__link">
+            <NavLink to="/saved-movies" className="burger__menu-link">
               Сохранённые фильмы
             </NavLink>
             <Link to="/profile">

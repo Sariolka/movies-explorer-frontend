@@ -4,14 +4,17 @@ import "./Profile.css";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+//import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({ loggedIn, onChange }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  //const currentUser = React.useContext(CurrentUserContext);
   const { formValues, isValid, handleChange, showErrors } = useValidation({});
   const [isChanged, setIsChanged] = React.useState(false);
+  const [name, setName] = React.useState('Виталий');
+  const [email, setEmail] = React.useState('pochta@yandex.ru')
 
   const notValid = !isValid;
+  
   function handleSubmit(e) {
     e.preventDefault();
     onChange({
@@ -32,7 +35,7 @@ function Profile({ loggedIn, onChange }) {
         <Navigation loggedIn={loggedIn} />
       </nav>
       <div className="profile__container">
-        <h2 className="profile__title">Привет, {currentUser.name}! </h2>
+        <h2 className="profile__title">Привет, {name}! </h2>
         <form
           className="profile__form"
           isValid={!isValid}
@@ -51,7 +54,7 @@ function Profile({ loggedIn, onChange }) {
                 maxLength="40"
                 required
                 placeholder="Имя"
-                value={formValues.name || "Виталий"}
+                value={formValues.name || name}
                 onChange={handleChange}
               />
             </label>
@@ -65,7 +68,7 @@ function Profile({ loggedIn, onChange }) {
                 name="email"
                 required
                 placeholder="Email"
-                value={formValues.email || "pochta@yandex.ru"}
+                value={formValues.email || email}
                 onChange={handleChange}
               />
             </label>

@@ -38,6 +38,7 @@ function Login({ onLogin }) {
         isDisabled={!isValid}
       >
         <fieldset className={`form__fieldset form__fieldset-log`}>
+        <div className="form__value">
           <label className="form__label" for="email">
             E-mail
           </label>
@@ -57,6 +58,8 @@ function Login({ onLogin }) {
           {showErrors.email && (
             <span className="form__error">Что-то пошло не так...</span>
           )}
+          </div>
+          <div className="form__value">
           <label className="form__label" for="password">
             Пароль
           </label>
@@ -76,6 +79,7 @@ function Login({ onLogin }) {
           {showErrors.password && (
             <span className="form__error">Что-то пошло не так...</span>
           )}
+          </div>
         </fieldset>
       </Form>
     </section>
