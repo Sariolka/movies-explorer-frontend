@@ -3,7 +3,7 @@ import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
 import cardImg from "../../images/card__img.png";
 
-function MoviesCard({ card }) {
+function MoviesCard({ buttonTitle }) {
   const location = useLocation();
   const [isLiked, setIsLiked] = React.useState(false);
 
@@ -11,8 +11,14 @@ function MoviesCard({ card }) {
     isLiked && "movie__like_active"
   }`;
 
-  function handleSaveMovies() {
+
+  function handleSaveMovie() {
     setIsLiked(!isLiked);
+  }
+
+  function handleDeleteMovie() {
+    setIsLiked(!isLiked);
+    alert("Фильм удален!");
   }
 
   return (
@@ -23,12 +29,24 @@ function MoviesCard({ card }) {
       </div>
       <img className="movie__image" src={cardImg} alt="Постер фильма" />
 
-      <button
-        type="button"
-        aria-label="Сохранить фильм"
-        className={cardLikeButtonClassName}
-        onClick={handleSaveMovies}
-      />
+      {location.pathname === "/movies" ? (
+        <button
+          type="button"
+          aria-label="Сохранить фильм"
+          onClick={handleSaveMovie}
+          className={cardLikeButtonClassName}
+        >
+          {" "}
+          {!isLiked ? buttonTitle : null}
+        </button>
+      ) : (
+        <button
+          type="button"
+          aria-label="Удалить фильм"
+          onClick={handleDeleteMovie}
+          className="movie__like movie__like_inactive"
+        />
+      )}
     </li>
   );
 }

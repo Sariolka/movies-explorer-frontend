@@ -1,4 +1,4 @@
-.toggle__label {
+.toggle__text {
   color: #000;
   font-size: 13px;
   font-weight: 400;
@@ -6,15 +6,24 @@
   align-self: center;
 }
 
+.toggle__label {
+  align-self: center;
+  width: 36px;
+  height: 20px;
+  background-color: #2be080;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+}
+
 .toggle {
   display: flex;
   justify-content: center;
-  gap: 14px;
   width: 226px;
   border-left: 1px solid #cbcbcb;
   height: 40px;
   align-self: center;
-  position: relative;
+  gap: 14px;
 }
 
 .toggle__checkbox {
@@ -23,29 +32,57 @@
   height: 0;
   visibility: hidden;
   position: absolute;
+  z-index: -1;
+  clip: rect(0 0 0 0);
 }
 
-.toggle__checkbox-visible {
-  width: 36px;
-  height: 20px;
-  display: inline-block;
-  background-color: #2be080;
-  border-radius: 16px;
-  cursor: pointer;
-  align-self: center;
+.toggle__position {
+  background-color: #ebebeb;
+
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 20px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  position: absolute;
 }
 
-.toggle__checkbox-circle {
+.toggle__position:before {
+  position: absolute;
+  content: "";
   width: 16px;
   height: 16px;
   border-radius: 16px;
+  left: 2px;
+  bottom: 2px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   background-color: #fff;
-  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
-  margin: 2px 18px 2px 2px;
 }
 
-.toggle__checkbox-circle::before {
-  position: absolute;
-  content: "";
-  display: inline-block;
+input:checked + .toggle__position {
+  background-color: #2be080;
+}
+
+input:checked + .toggle__position::before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+@media screen and (max-width: 950px) {
+  .toggle {
+    width: 180px;
+    gap: 5px;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  .toggle {
+    border: none;
+    border-top: 1px solid #cbcbcb;
+    width: 97%;
+  }
 }

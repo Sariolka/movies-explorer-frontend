@@ -10,20 +10,19 @@ function Toggle() {
 
   return (
     <div className="toggle">
-      <input
-        type="checkbox"
-        id="checkbox"
-        className="toggle__checkbox"
-        onChange={handleCheck}
-        checked={isChecked}
-      />
-      <div className="toggle__checkbox-visible">
-        <div className="toggle__checkbox-circle"></div>
-      </div>
       <label className="toggle__label" for="checkbox">
-        {" "}
-        Короткометражки
+        <input
+          type="checkbox"
+          id="checkbox"
+          name="chechbox"
+          className="toggle__checkbox"
+          onChange={handleCheck}
+          checked={isChecked}
+        />
+
+        <span className="toggle__position" />
       </label>
+      <span className="toggle__text">Короткометражки</span>
     </div>
   );
 }
