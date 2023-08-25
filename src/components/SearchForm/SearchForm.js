@@ -16,7 +16,7 @@ function SearchForm() {
             maxLength={100}
             required
           ></input>{" "}
-          <button className="search__btn-submit"></button>
+          <button className="search__btn-submit">Найти</button>
         </div>
         <Toggle />{" "}
       </form>

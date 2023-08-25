@@ -11,7 +11,7 @@
   line-height: normal;
   letter-spacing: -0.88px;
   margin: 0;
-  padding-bottom: 23px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #000;
   width: 100%;
 }
@@ -30,7 +30,7 @@
   font-weight: 400;
   line-height: 58px;
   letter-spacing: -2px;
-  margin: 80px auto 22px;
+  margin: 90px auto 25px;
 }
 
 .techs__subtitle {
@@ -72,6 +72,15 @@
     padding-bottom: 90px;
   }
 
+  .techs__title {
+    margin-top: 81px;
+    margin-bottom: 19px;
+  }
+
+  .techs__subtitle {
+    margin-bottom: 80px;
+  }
+
   .techs__container {
     margin-left: 50px;
     margin-right: 50px;
@@ -80,7 +89,7 @@
   .techs__list {
     margin-left: 60px;
     margin-right: 60px;
-    grid-template-columns: repeat(4, 84px);
+    grid-template-columns: repeat(7, 84px);
   }
 
   .techs__list-item {
@@ -89,10 +98,16 @@
   }
 }
 
+@media screen and (max-width: 680px) {
+  .techs__list {
+    grid-template-columns: repeat(4, 84px);
+  }
+}
+
 @media screen and (max-width: 460px) {
   .techs {
     background-color: #fff;
-    padding-top: 70px;
+    padding-top: 72px;
     padding-bottom: 70px;
   }
 
@@ -110,8 +125,8 @@
   .techs__title {
     font-size: 30px;
     letter-spacing: -1.2px;
-    margin-top: 60px;
-    margin-bottom: 24px;
+    margin-top: 50px;
+    margin-bottom: 12px;
   }
 
   .techs__subtitle {
@@ -123,5 +138,11 @@
 
   .techs__list {
     grid-template-columns: repeat(2, 84px);
+  }
+
+  .techs__list-item {
+    padding-bottom: 21px;
+    letter-spacing: -0.48px;
+    font-size: 12px;
   }
 }

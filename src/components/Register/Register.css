@@ -5,3 +5,15 @@
   flex-direction: column;
   color: #000;
 }
+
+@media screen and (max-width: 768px) {
+  .register {
+    margin-top: 233px;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .register {
+    margin-top: 55px;
+  }
+}

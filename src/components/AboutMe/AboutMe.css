@@ -9,7 +9,7 @@
   line-height: normal;
   letter-spacing: -0.88px;
   margin: 0;
-  padding-bottom: 23px;
+  padding-bottom: 25px;
   border-bottom: 1px solid #000;
   width: 100%;
 }
@@ -70,6 +70,9 @@
   .about-me {
     padding: 90px 50px 0;
   }
+  .about-me__heading {
+    padding-bottom: 22px;
+  }
 
   .about-me__name {
     font-size: 40px;
@@ -99,7 +102,7 @@
 
 @media screen and (max-width: 460px) {
   .about-me {
-    padding: 60px 14px 0;
+    padding: 71px 14px 0;
   }
 
   .about-me__heading {
@@ -120,14 +123,14 @@
   }
 
   .about-me__name {
-    margin-top: 40px;
+    margin-top: 39px;
     font-size: 30px;
     letter-spacing: -1.2px;
   }
 
   .about-me__profession {
-    padding-top: 20px;
-    padding-bottom: 20px;
+    margin-top: 18px;
+    margin-bottom: 20px;
     font-size: 11px;
     line-height: 16px;
   }

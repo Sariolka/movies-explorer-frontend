@@ -25,6 +25,11 @@
   font-weight: 400;
   line-height: normal;
   text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.form__link:hover {
+  opacity: 0.7;
 }
 
 .form__fieldset {
@@ -35,11 +40,11 @@
 }
 
 .form__fieldset-reg {
-  margin: 0 0 134px;
+  margin: 0 0 128px;
 }
 
 .form__fieldset-log {
-  margin: 0 0 134px;
+  margin: 0 0 197px;
 }
 
 .form__label {
@@ -56,10 +61,10 @@
 }
 
 .form__value {
-display: flex;
-flex-direction: column;
-margin-bottom: 24px;
-position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .form__input {
@@ -145,11 +150,11 @@ position: relative;
   }
 
   .form__fieldset-reg {
-    margin-bottom: 222px;
+    margin-bottom: 217px;
   }
 
   .form__fieldset-log {
-    margin-bottom: 327px;
+    margin-bottom: 286px;
   }
 
   .form__button-submit {
@@ -168,4 +173,7 @@ position: relative;
     font-size: 12px;
     gap: 7px;
   }
+}
+
+@media screen and (max-width: 768px) {
 }

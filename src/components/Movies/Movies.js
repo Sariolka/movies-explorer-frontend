@@ -13,7 +13,7 @@ function Movies() {
     <main className="movies">
       <Header />
       <SearchForm />
-      {isLoading ? <Preloader /> : <MoviesCardList buttonTitle={"Сохранить"}/>}
+      {isLoading ? <Preloader /> : <MoviesCardList buttonTitle={"Сохранить"} />}
       <Footer />
     </main>
   );

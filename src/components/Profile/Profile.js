@@ -10,11 +10,11 @@ function Profile({ loggedIn, onChange }) {
   //const currentUser = React.useContext(CurrentUserContext);
   const { formValues, isValid, handleChange, showErrors } = useValidation({});
   const [isChanged, setIsChanged] = React.useState(false);
-  const [name, setName] = React.useState('Виталий');
-  const [email, setEmail] = React.useState('pochta@yandex.ru')
+  const [name, setName] = React.useState("Виталий");
+  const [email, setEmail] = React.useState("pochta@yandex.ru");
 
   const notValid = !isValid;
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     onChange({
@@ -43,7 +43,7 @@ function Profile({ loggedIn, onChange }) {
         >
           <div className="profile__value">
             <label className="profile__label">
-              <p className="profile__name">Имя</p>
+              Имя
               <input
                 className={`profile__input ${
                   showErrors.name && "profile__input_type_invalid"
@@ -59,7 +59,7 @@ function Profile({ loggedIn, onChange }) {
               />
             </label>
             <label className="profile__label">
-              <p className="profile__name">E-mail</p>
+              E-mail
               <input
                 className={`profile__input ${
                   showErrors.email && "profile__input_type_invalid"

@@ -20,12 +20,13 @@
   .header {
     padding-left: 30px;
     padding-right: 30px;
+    padding-bottom: 22px;
   }
 }
 
 @media screen and (max-width: 460px) {
   .header {
-    padding-left: 18px;
-    padding-right: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 }

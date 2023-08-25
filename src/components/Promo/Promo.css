@@ -20,7 +20,7 @@
 
 .promo__subtitle {
   margin-top: 36px;
-  margin-bottom: 146px;
+  margin-bottom: 152px;
   max-width: 310px;
   color: #fff;
   font-size: 13px;
@@ -59,7 +59,7 @@
   .promo__container {
     flex-direction: column-reverse;
     align-items: center;
-    padding: 140px 44px 86px;
+    padding: 132px 44px 86px;
   }
 
   .promo__text {
@@ -80,7 +80,7 @@
 
 @media screen and (max-width: 460px) {
   .promo__container {
-    padding: 70px 10px 40px;
+    padding: 62px 10px 40px;
   }
 
   .promo__text {
@@ -95,7 +95,7 @@
   }
 
   .promo__subtitle {
-    margin: 24px auto 80px;
+    margin: 24px auto 87px;
   }
 
   .promo__image {

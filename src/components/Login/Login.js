@@ -38,47 +38,47 @@ function Login({ onLogin }) {
         isDisabled={!isValid}
       >
         <fieldset className={`form__fieldset form__fieldset-log`}>
-        <div className="form__value">
-          <label className="form__label" for="email">
-            E-mail
-          </label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            className={`form__input ${
-              showErrors.email && "form__input_type_invalid"
-            }`}
-            placeholder="Введите Email"
-            minLength={4}
-            maxLength={200}
-            required
-            onChange={handleChange}
-          />
-          {showErrors.email && (
-            <span className="form__error">Что-то пошло не так...</span>
-          )}
+          <div className="form__value">
+            <label className="form__label" for="email">
+              E-mail
+            </label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              className={`form__input ${
+                showErrors.email && "form__input_type_invalid"
+              }`}
+              placeholder="Введите Email"
+              minLength={4}
+              maxLength={200}
+              required
+              onChange={handleChange}
+            />
+            {showErrors.email && (
+              <span className="form__error">Что-то пошло не так...</span>
+            )}
           </div>
           <div className="form__value">
-          <label className="form__label" for="password">
-            Пароль
-          </label>
-          <input
-            id="password"
-            type="password"
-            name="password"
-            className={`form__input ${
-              showErrors.password && "form__input_type_invalid"
-            }`}
-            placeholder="Введите пароль"
-            minLength={6}
-            maxLength={40}
-            required
-            onChange={handleChange}
-          />
-          {showErrors.password && (
-            <span className="form__error">Что-то пошло не так...</span>
-          )}
+            <label className="form__label" for="password">
+              Пароль
+            </label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              className={`form__input ${
+                showErrors.password && "form__input_type_invalid"
+              }`}
+              placeholder="Введите пароль"
+              minLength={6}
+              maxLength={40}
+              required
+              onChange={handleChange}
+            />
+            {showErrors.password && (
+              <span className="form__error">Что-то пошло не так...</span>
+            )}
           </div>
         </fieldset>
       </Form>

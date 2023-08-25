@@ -18,7 +18,7 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 30px;
+  gap: 37px;
 }
 
 .about__item {
@@ -78,9 +78,14 @@
     padding: 90px 50px;
   }
 
+  .about__time {
+    grid-template-columns: minmax(100px, 140px) 4fr;
+  }
+
   .about__items {
     padding-top: 70px;
     padding-bottom: 93px;
+    gap: 31px;
   }
 
   .about__item-title {
@@ -91,6 +96,7 @@
   .about__item-subtitle {
     font-size: 12px;
     line-height: 18px;
+    margin-top: 21px;
   }
 }
 
@@ -101,13 +107,15 @@
 
   .about__title {
     padding-bottom: 28px;
+    letter-spacing: -0.72px;
+    font-size: 18px;
   }
 
   .about__items {
     padding-top: 60px;
     padding-bottom: 60px;
     grid-template-columns: 1fr;
-    gap: 56px;
+    gap: 55px;
   }
 
   .about__item-title {
@@ -118,15 +126,22 @@
   .about__item-subtitle {
     font-size: 11px;
     line-height: 16px;
+    margin-top: 19px;
   }
 
   .about__time-text {
     padding-top: 10px;
     font-size: 11px;
+    line-height: normal;
   }
 
   .about__time-weeks {
     font-size: 11px;
     padding-top: 11px;
+    height: 22px;
+  }
+
+  .about__time {
+    grid-template-columns: minmax(100px, 1fr) 4fr;
   }
 }

@@ -8,22 +8,21 @@
 
 .toggle__label {
   align-self: center;
-  width: 36px;
-  height: 20px;
+  width: 34px;
+  height: 14px;
   background-color: #2be080;
-  border-radius: 20px;
+  border-radius: 14px;
   cursor: pointer;
   position: relative;
 }
 
 .toggle {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   width: 226px;
-  border-left: 1px solid #cbcbcb;
   height: 40px;
-  align-self: center;
   gap: 14px;
+  margin-top: 23px;
 }
 
 .toggle__checkbox {
@@ -38,7 +37,6 @@
 
 .toggle__position {
   background-color: #ebebeb;
-
   top: 0;
   left: 0;
   right: 0;
@@ -52,9 +50,9 @@
 .toggle__position:before {
   position: absolute;
   content: "";
-  width: 16px;
-  height: 16px;
-  border-radius: 16px;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
   left: 2px;
   bottom: 2px;
   -webkit-transition: 0.3s;
@@ -67,22 +65,30 @@ input:checked + .toggle__position {
 }
 
 input:checked + .toggle__position::before {
-  -webkit-transform: translateX(16px);
-  -ms-transform: translateX(16px);
-  transform: translateX(16px);
+  -webkit-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
 }
 
-@media screen and (max-width: 950px) {
+@media screen and (max-width: 768px) {
   .toggle {
-    width: 180px;
-    gap: 5px;
+    flex-direction: row-reverse;
+    gap: 16px;
+    margin-top: 20px;
+    justify-content: end;
+    width: 100%;
   }
 }
 
-@media screen and (max-width: 590px) {
+@media screen and (max-width: 460px) {
   .toggle {
-    border: none;
-    border-top: 1px solid #cbcbcb;
-    width: 97%;
+    margin-top: 31px;
+    gap: 13px;
+    justify-content: center;
+  }
+
+  .toggle__text {
+    font-size: 11px;
+    line-height: 18px;
   }
 }
