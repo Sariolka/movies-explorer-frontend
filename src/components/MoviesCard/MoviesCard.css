@@ -16,6 +16,7 @@
   font-weight: 500;
   line-height: normal;
   margin: 0;
+  align-self: center;
 }
 
 .movie__duration {
