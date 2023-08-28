@@ -6,16 +6,17 @@
 .movie__header {
   display: flex;
   justify-content: space-between;
-  padding: 14px 0 21px;
+  padding: 11px 0 24px;
   border-bottom: 1px solid #e8e8e8;
 }
 
 .movie__title {
   color: #000;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 500;
-  line-height: 18px;
+  line-height: normal;
   margin: 0;
+  align-self: center;
 }
 
 .movie__duration {
