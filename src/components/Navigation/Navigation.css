@@ -1,0 +1,152 @@
+.nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.nav__links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav__link-reg {
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__link-reg:hover {
+  opacity: 0.7;
+}
+
+.nav__link-login {
+  border-radius: 3px;
+  background-color: #2be080;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__link-login:hover {
+  opacity: 0.8;
+}
+
+.nav__movies {
+  display: flex;
+  align-items: center;
+  margin-right: calc(50% - 188px);
+  gap: 16px;
+}
+
+.nav__link-movies {
+  text-decoration: none;
+  color: #fff;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__link-movies:hover {
+  opacity: 0.7;
+}
+.nav__link-movies_active {
+  font-weight: 500;
+}
+
+.nav__link-saved-movies {
+  color: #fff;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.nav__link-saved-movies:hover {
+  opacity: 0.7;
+}
+.nav__link-saved-movies_active {
+  font-weight: 500;
+}
+
+.nav__link-movies_black {
+  color: #000;
+}
+
+.nav__link-saved-movies_black {
+  color: #000;
+}
+
+.nav__btn-burger {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav__link-saved-movies {
+    display: none;
+  }
+
+  .nav__link-movies {
+    display: none;
+  }
+
+  .nav__btn-burger {
+    display: block;
+    background-image: url(../../images/burger-white.svg);
+    width: 44px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    background-position: center;
+    cursor: pointer;
+    background-size: contain;
+    transition: opacity 0.3s ease;
+  }
+
+  .nav__btn-burger:hover {
+    opacity: 0.7;
+  }
+
+  .nav__btn-burger_dark {
+    background-image: url(../../images/burger.svg);
+  }
+
+  .nav__movies {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 460px) {
+  .nav__link-login {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+
+  .nav__link-reg {
+    font-size: 10px;
+  }
+
+  .nav__btn-burger {
+    width: 38px;
+    height: 38px;
+  }
+}
