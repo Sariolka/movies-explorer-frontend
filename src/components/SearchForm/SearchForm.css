@@ -21,6 +21,11 @@
   outline: none;
 }
 
+.search__input:focus {
+  outline: 0;
+  border-bottom: 1px solid #3456f3;
+}
+
 .search__btn-submit {
   border-radius: 48px;
   background: #3456f3;

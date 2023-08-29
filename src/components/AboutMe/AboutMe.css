@@ -85,12 +85,14 @@
     margin-top: 16px;
     margin-bottom: 20px;
     max-width: 364px;
+    margin-right: 49px;
   }
 
   .about-me__description {
     font-size: 12px;
     line-height: 18px;
     max-width: 364px;
+    margin-right: 49px;
     margin-bottom: 87px;
   }
 
@@ -100,7 +102,7 @@
   }
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 600px) {
   .about-me {
     padding: 71px 14px 0;
   }
@@ -124,8 +126,6 @@
 
   .about-me__name {
     margin-top: 39px;
-    font-size: 30px;
-    letter-spacing: -1.2px;
   }
 
   .about-me__profession {

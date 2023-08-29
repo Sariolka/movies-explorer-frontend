@@ -18,7 +18,7 @@
 
 .toggle {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   width: 226px;
   height: 40px;
   gap: 14px;
