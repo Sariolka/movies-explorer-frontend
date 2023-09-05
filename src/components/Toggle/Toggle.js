@@ -1,12 +1,10 @@
 import React from "react";
 import "./Toggle.css";
 
-function Toggle() {
-  const [isChecked, SetIsChecked] = React.useState(false);
+function Toggle({handleToggle, isOn}) {
 
-  function handleCheck() {
-    SetIsChecked(!isChecked);
-  }
+
+
 
   return (
     <div className="toggle">
@@ -16,8 +14,8 @@ function Toggle() {
           id="checkbox"
           name="chechbox"
           className="toggle__checkbox"
-          onChange={handleCheck}
-          checked={isChecked}
+          onChange={handleToggle}
+          checked={isOn}
         />
 
         <span className="toggle__position" />

@@ -39,7 +39,7 @@ function Login({ onLogin }) {
       >
         <fieldset className={`form__fieldset form__fieldset-log`}>
           <div className="form__value">
-            <label className="form__label" for="email">
+            <label className="form__label" htmlFor="email">
               E-mail
             </label>
             <input
@@ -60,7 +60,7 @@ function Login({ onLogin }) {
             )}
           </div>
           <div className="form__value">
-            <label className="form__label" for="password">
+            <label className="form__label" htmlFor="password">
               Пароль
             </label>
             <input

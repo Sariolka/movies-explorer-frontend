@@ -1,36 +1,50 @@
 import React from "react";
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
-import cardImg from "../../images/card__img.png";
+import { handleCalculateDuration } from "../../utils/utils";
 
-function MoviesCard() {
+function MoviesCard({ card, onCardLike, onCardDelete, savedMovies }) {
   const location = useLocation();
-  const [isLiked, setIsLiked] = React.useState(false);
+// const isLiked = savedMovies.some((card) => card.movieId === card.id);
+ //const cardLikeButtonClassName = `movie__like ${
+    //isLiked && "movie__like_active"
+ // }`;
 
-  const cardLikeButtonClassName = `movie__like ${
-    isLiked && "movie__like_active"
-  }`;
+  const handleSaveMovie = () => {
+    onCardLike(card);
+  };
 
-  function handleSaveMovie() {
-    setIsLiked(!isLiked);
-  }
-
-  function handleDeleteMovie() {
-    setIsLiked(!isLiked);
-    alert("Фильм удален!");
-  }
+  const handleDeleteMovie = () => {
+    onCardDelete(card);
+  };
+  
 
   return (
     <li className="movie">
-      <img className="movie__image" src={cardImg} alt="Постер фильма" />
+      <a
+        className="movie__link"
+        href={card.trailerLink}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <img
+          className="movie__image"
+          src={
+            location.pathname === "/movies"
+              ? `https://api.nomoreparties.co${card.image.url}`
+              : card.image
+          }
+          alt={card.nameRU}
+        />
+      </a>
       <div className="movie__header">
-        <h2 className="movie__title">33 слова о дизайне</h2>
+        <h2 className="movie__title">{`${card.nameRU}`}</h2>
         {location.pathname === "/movies" ? (
           <button
             type="button"
             aria-label="Сохранить фильм"
             onClick={handleSaveMovie}
-            className={cardLikeButtonClassName}
+            //className={cardLikeButtonClassName}
           >
             {" "}
           </button>
@@ -43,7 +57,9 @@ function MoviesCard() {
           />
         )}
       </div>{" "}
-      <p className="movie__duration">1ч 42м</p>
+      <p className="movie__duration">
+        {handleCalculateDuration(card.duration)}
+      </p>
     </li>
   );
 }

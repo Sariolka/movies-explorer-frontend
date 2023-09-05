@@ -6,11 +6,11 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 
-function SavedMovies() {
+function SavedMovies({ loggedIn }) {
   const [isLoading, setIsLoading] = React.useState(false);
   return (
     <main className="movies-saved">
-      <Header />
+      <Header loggedIn={loggedIn} />
       <SearchForm />
       {isLoading ? <Preloader /> : <MoviesCardList />}
       <Footer />
