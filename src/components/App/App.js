@@ -16,39 +16,30 @@ import { mainApi } from "../../utils/MainApi";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-
-  //const [films, setFilms] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const navigate = useNavigate();
 
-  //useEffect(() => {
-  // moviesApi.getMovies()
-   //.then((res) => localStorage.setItem("films", )
-// )}, []);
-
- 
-
-  function handleRegister(user) {
+  function handleRegister({ email, name, password }) {
     mainApi
-      .register({ name: user.name, email: user.email, password: user.password })
+      .register({ email, password, name })
       .then(() => {
-        handleLogin(user);
+        handleLogin({ email, password });
       })
       .catch((err) => {
         console.log(err);
       });
   }
 
-  function handleLogin(user) {
+  function handleLogin({ email, password }) {
+    //вход
     mainApi
-      .authorize(user)
+      .authorize({ email, password })
       .then((user) => {
         if (user) {
           localStorage.setItem("token", user.token);
-          handleCheckToken();
-
+          setCurrentUser(user);
           setLoggedIn(true);
-         // handleGetMovies();
+
           navigate("/movies", { replace: true });
         }
       })
@@ -58,17 +49,17 @@ function App() {
   }
 
   function handleCheckToken() {
+    // проверка токена
     mainApi
-      .checkToken()
+      .getUserInfo()
       .then((user) => {
-        setLoggedIn(true);
         setCurrentUser(user);
-        
+        setLoggedIn(true);
       })
       .catch((err) => {
         console.log(err);
         setLoggedIn(false);
-        setCurrentUser({});
+        setCurrentUser(null);
       });
   }
 
@@ -76,25 +67,29 @@ function App() {
     handleCheckToken();
   }, []);
 
-  function onSignOut() {
-    localStorage.removeItem("token");
+  function handleSignOut() {
+    //выход
     setLoggedIn(false);
-    setCurrentUser({});
+    setCurrentUser(null);
+    localStorage.clear();
+    localStorage.removeItem("token");
     navigate("/", { replace: true });
   }
-  useEffect(() => {
-    navigate(JSON.parse(window.sessionStorage.getItem("lastRoute") || "{}"));
-    window.onbeforeunload = () => {
-      window.sessionStorage.setItem(
-        "lastRoute",
-        JSON.stringify(window.location.pathname)
-      );
-    };
-  }, []);
 
-  function editUserProfile(value) {
+  //useEffect(() => {
+    //navigate(JSON.parse(window.sessionStorage.getItem("lastRoute") || "{}"));
+    //window.onbeforeunload = () => {
+     // window.sessionStorage.setItem(
+      //  "lastRoute",
+      //  JSON.stringify(window.location.pathname)
+     // );
+   // };
+ // }, []);
+
+  function editUserProfile({ name, email }) {
+    //редактирование профиля
     mainApi
-      .editUserProfile(value)
+      .editUserProfile({ name, email })
       .then((user) => {
         setCurrentUser(user);
       })
@@ -103,6 +98,44 @@ function App() {
       });
   }
 
+  function handleCardLike(card) {
+    const isLiked = savedMovies.some((card) => card.movieId === card.id);
+    mainApi
+      .saveMovie(card, isLiked)
+      .then((card) => {
+        const newSavedMovies = [card, ...savedMovies];
+        setSavedMovies(newSavedMovies);
+        localStorage.setItem("lastSavedMovies", JSON.stringify(newSavedMovies));
+
+        //setSavedMovies(savedMovies.map((savedMovie) =>
+        // savedMovie.movieId === card.id ? card : savedMovie));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    mainApi
+      .deleteMovie(card)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((c) => c._id !== card._id));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getSavedMovies() {
+    mainApi
+      .getSavedMovies()
+      .then((savedMovies) => {
+        setSavedMovies(savedMovies);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -110,12 +143,24 @@ function App() {
           <Route path="/" element={<Main loggedIn={loggedIn} />} />
           <Route
             path="/movies"
-            element={<ProtectedRoute element={Movies} loggedIn={loggedIn} savedMovies={ savedMovies }/>}
+            element={
+              <ProtectedRoute
+                element={Movies}
+                loggedIn={loggedIn}
+                savedMovies={savedMovies}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+              />
+            }
           />
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRoute element={SavedMovies} loggedIn={loggedIn} />
+              <ProtectedRoute
+                element={SavedMovies}
+                loggedIn={loggedIn}
+                savedMovies={savedMovies}
+              />
             }
           />
           <Route
@@ -124,7 +169,7 @@ function App() {
               <ProtectedRoute
                 element={Profile}
                 loggedIn={loggedIn}
-                onSignOut={onSignOut}
+                onSignOut={handleSignOut}
                 onChange={editUserProfile}
               />
             }

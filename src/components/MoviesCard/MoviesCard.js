@@ -5,10 +5,10 @@ import { handleCalculateDuration } from "../../utils/utils";
 
 function MoviesCard({ card, onCardLike, onCardDelete, savedMovies }) {
   const location = useLocation();
-// const isLiked = savedMovies.some((card) => card.movieId === card.id);
- //const cardLikeButtonClassName = `movie__like ${
-    //isLiked && "movie__like_active"
- // }`;
+  const isLiked = savedMovies.some((card) => card.movieId === card.id);
+  const cardLikeButtonClassName = `movie__like ${
+    isLiked && "movie__like_active"
+  }`;
 
   const handleSaveMovie = () => {
     onCardLike(card);
@@ -17,7 +17,6 @@ function MoviesCard({ card, onCardLike, onCardDelete, savedMovies }) {
   const handleDeleteMovie = () => {
     onCardDelete(card);
   };
-  
 
   return (
     <li className="movie">
@@ -44,7 +43,7 @@ function MoviesCard({ card, onCardLike, onCardDelete, savedMovies }) {
             type="button"
             aria-label="Сохранить фильм"
             onClick={handleSaveMovie}
-            //className={cardLikeButtonClassName}
+            className={cardLikeButtonClassName}
           >
             {" "}
           </button>

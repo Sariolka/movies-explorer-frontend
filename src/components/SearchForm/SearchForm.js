@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useValidation from "../../hooks/useValidation";
 import "./SearchForm.css";
 import Toggle from "../Toggle/Toggle";
 
 function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
   const { formValues, handleChange, setFormValues } = useValidation({});
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setFormValues({ search: input });
@@ -12,9 +13,13 @@ function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onSearchMovies(formValues.search);
+    if (formValues.search.trim().length === 0) {
+      setError(true);
+    } else {
+      setError(false);
+      onSearchMovies(formValues.search);
+    }
   }
-
   return (
     <div className="search">
       <form className="search__form">
@@ -35,6 +40,11 @@ function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
           </button>
         </div>
         <Toggle handleToggle={handleToggle} isChecked={isOn} />{" "}
+        {error && (
+          <span className="search__text-error">
+            {"Нужно ввести ключевое слово"}
+          </span>
+        )}
       </form>
     </div>
   );

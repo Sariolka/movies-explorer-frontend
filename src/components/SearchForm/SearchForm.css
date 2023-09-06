@@ -46,6 +46,14 @@
   opacity: 0.8;
 }
 
+.search__text-error {
+  color: #ff3055;
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  text-align: center;
+}
 .search__container {
   width: 100%;
   display: flex;

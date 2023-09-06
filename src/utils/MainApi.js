@@ -1,71 +1,63 @@
 class MainApi {
   constructor({ url, headers }) {
-    this._url = url;
-    this._headers = headers;
+    this.url = url;
+    this.headers = headers;
   }
 
   _getResponse(res) {
+    console.log(res);
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  register(user) {
-    return fetch(`${this._url}/signup`, {
+  register({ email, password, name }) {
+    return fetch(`${this.url}/signup`, {
       method: "POST",
-      headers: this._headers,
+      headers: this.headers,
       credentials: "include",
-      body: JSON.stringify({
-        name: user.name,
-        email: user.email,
-        password: user.password,
-      }),
+      body: JSON.stringify({ email, password, name}),
     }).then((res) => this._getResponse(res));
   }
 
-  authorize(user) {
-    return fetch(`${this._url}/signin`, {
+  authorize({ email, password }) {
+    return fetch(`${this.url}/signin`, {
       method: "POST",
-      headers: this._headers,
+      headers: this.headers,
       credentials: "include",
-      body: JSON.stringify({ email: user.email, password: user.password }),
+      body: JSON.stringify({ email, password }),
     }).then((res) => this._getResponse(res));
   }
+
 
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this.url}/users/me`, {
       method: "GET",
-      headers: this._headers,
-    }).then((res) => this._getResponse(res));
-  }
-
-  checkToken() {
-    return fetch(`${this._url}/users/me`, {
-      method: "GET",
-      headers: this._headers,
+      headers: this.headers,
       credentials: "include",
     }).then((res) => this._getResponse(res));
   }
 
+
   getSavedMovies() {
-    return fetch(`${this._url}/movies`, {
+    return fetch(`${this.url}/movies`, {
       method: "GET",
-      headers: this._headers,
+      headers: this.headers,
       credentials: "include",
     }).then((res) => this._getResponse(res));
   }
 
   editUserProfile({ name, email }) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this.url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this.headers,
       body: JSON.stringify({ name, email }),
     }).then((res) => this._getResponse(res));
   }
 
-  addMovie(card) {
-    return fetch(`${this._url}/movies`, {
+  saveMovie(card, isLiked) {
+    if(!isLiked) {
+    return fetch(`${this.url}/movies`, {
       method: "POST",
-      credentials: "include",
-      headers: this._headers,
+      headers: this.headers,
       body: JSON.stringify({
         country: card.country,
         director: card.director,
@@ -73,7 +65,7 @@ class MainApi {
         year: card.year,
         description: card.description,
         image: `https://api.nomoreparties.co${card.image.url}`,
-        trailer: card.trailerLink,
+        trailerLink: card.trailerLink,
         thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
         movieId: card.id,
         nameRU: card.nameRU,
@@ -81,14 +73,20 @@ class MainApi {
       }),
     }).then((res) => this._getResponse(res));
   }
-
-  deleteCard(card) {
-    return fetch(`${this._url}/movies/${card.id}`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => this._getResponse(res));
   }
+
+
+deleteCard(card) {
+  return fetch(`${this.url}/movies/${card.id}`, {
+    method: "DELETE",
+    headers: this.headers,
+  }).then((res) => this._getResponse(res));
 }
+}
+    
+
+
+
 
 export const mainApi = new MainApi({
   url: "http://api.sariola.diploma.nomoreparties.co",

@@ -1,12 +1,14 @@
-import React from "react";
+import {useState, useEffect, useContext} from "react";
 import "./Profile.css";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
+import { useNavigate } from "react-router-dom";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({ loggedIn, onChange, onSignOut }) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const navigate = useNavigate();
+  const currentUser = useContext(CurrentUserContext);
   const {
     formValues,
     isValid,
@@ -15,15 +17,15 @@ function Profile({ loggedIn, onChange, onSignOut }) {
     resetForm,
     setFormValues,
   } = useValidation({});
-  const [isChanged, setIsChanged] = React.useState(false);
+  const [isChanged, setIsChanged] = useState(false);
   const notValid = !isValid;
 
-  React.useEffect(() => {
-    
-      resetForm();
+
+  useEffect(() => {
+resetForm();
       setFormValues({ name: currentUser.name, email: currentUser.email });
-    
-  }, [currentUser, loggedIn]);
+     
+  }, [loggedIn, currentUser, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -55,7 +57,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
           onSubmit={handleSubmit}
         >
           <div className="profile__value">
-            <label className="profile__label">
+            <label className="profile__label" htmlFor="name">
               Имя
               <input
                 className={`profile__input ${
@@ -71,7 +73,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
                 onChange={handleChange}
               />
             </label>
-            <label className="profile__label">
+            <label className="profile__label" htmlFor="email"> 
               E-mail
               <input
                 className={`profile__input ${

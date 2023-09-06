@@ -1,14 +1,10 @@
 import React from "react";
 import "./Toggle.css";
 
-function Toggle({handleToggle, isOn}) {
-
-
-
-
+function Toggle({ handleToggle, isOn }) {
   return (
     <div className="toggle">
-      <label className="toggle__label" for="checkbox">
+      <label className="toggle__label" htmlFor="checkbox">
         <input
           type="checkbox"
           id="checkbox"

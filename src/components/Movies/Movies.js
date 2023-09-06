@@ -9,22 +9,21 @@ import { searchMovies } from "../../utils/utils";
 import { filterDuration } from "../../utils/utils";
 import { moviesApi } from "../../utils/MoviesApi";
 
-function Movies({ loggedIn }) {
+function Movies({ loggedIn, onCardLike, savedMovies }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [foundInputMovies, setFoundInputMovies] = useState([]); //найденные по ключевому слову фильмы
   const [filteredCheckboxMovies, setFilteredCheckboxMovies] = useState([]); //фильмы, отфильтрованные чекбоксом
 
   const [input, setInput] = useState(""); // стейт инпута
-  //const [error, setError] = useState("");
   const [isOn, setIsOn] = useState(false); //стейт чекбокса
 
   useEffect(() => {
-    const searchedMovies = localStorage.getItem("foundMovies");
+    const foundMovies = localStorage.getItem("foundMovies");
     const checkbox = localStorage.getItem("shortMovies");
     const inputSearch = localStorage.getItem("inputSearch");
-    if (searchedMovies) {
-      setFilteredCheckboxMovies(JSON.parse(searchedMovies));
+    if (foundMovies) {
+      setFilteredCheckboxMovies(JSON.parse(foundMovies));
     } else if (checkbox) {
       setIsOn(true);
     } else if (inputSearch) {
@@ -50,6 +49,7 @@ function Movies({ loggedIn }) {
   }, [loggedIn]);
 
   function handleSearchMovies(keyWord, isOn) {
+    if (!keyWord) return;
     console.log(keyWord);
     const allMovies = JSON.parse(localStorage.getItem("allMovies")); //достаем весь массив фильмов
     const moviesList = searchMovies(allMovies, keyWord, isOn); //ищем в нем фильмы по ключевому слову
@@ -92,9 +92,12 @@ function Movies({ loggedIn }) {
       ) : (
         <MoviesCardList
           buttonTitle={"Сохранить"}
-          cards={filteredCheckboxMovies}
+          filteredCheckboxMovies={filteredCheckboxMovies}
+          onCardLike={onCardLike}
+          savedMovies={savedMovies}
         />
       )}
+
       <Footer />
     </main>
   );
