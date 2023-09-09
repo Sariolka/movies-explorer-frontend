@@ -19,14 +19,14 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const navigate = useNavigate();
 
-  function handleRegister({ email, name, password }) {
+  function handleRegister({ name, email, password }) {
     mainApi
-      .register({ email, password, name })
+      .register({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   }
 
@@ -36,15 +36,15 @@ function App() {
       .authorize({ email, password })
       .then((user) => {
         if (user) {
+          setLoggedIn(true);
           localStorage.setItem("token", user.token);
           setCurrentUser(user);
-          setLoggedIn(true);
-
+          console.log(user);
           navigate("/movies", { replace: true });
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   }
 
@@ -53,8 +53,9 @@ function App() {
     mainApi
       .getUserInfo()
       .then((user) => {
-        setCurrentUser(user);
         setLoggedIn(true);
+        setCurrentUser(user);
+        console.log(user);
       })
       .catch((err) => {
         console.log(err);
@@ -76,15 +77,15 @@ function App() {
     navigate("/", { replace: true });
   }
 
-  //useEffect(() => {
-    //navigate(JSON.parse(window.sessionStorage.getItem("lastRoute") || "{}"));
-    //window.onbeforeunload = () => {
-     // window.sessionStorage.setItem(
-      //  "lastRoute",
-      //  JSON.stringify(window.location.pathname)
-     // );
-   // };
- // }, []);
+  useEffect(() => {
+    navigate(JSON.parse(window.sessionStorage.getItem("lastRoute")));
+    window.onbeforeunload = () => {
+      window.sessionStorage.setItem(
+        "lastRoute",
+        JSON.stringify(window.location.pathname)
+      );
+    };
+  }, []);
 
   function editUserProfile({ name, email }) {
     //редактирование профиля
@@ -98,7 +99,7 @@ function App() {
       });
   }
 
-  function handleCardLike(card) {
+  function handleSaveMovie(card) {
     const isLiked = savedMovies.some((card) => card.movieId === card.id);
     mainApi
       .saveMovie(card, isLiked)
@@ -106,9 +107,6 @@ function App() {
         const newSavedMovies = [card, ...savedMovies];
         setSavedMovies(newSavedMovies);
         localStorage.setItem("lastSavedMovies", JSON.stringify(newSavedMovies));
-
-        //setSavedMovies(savedMovies.map((savedMovie) =>
-        // savedMovie.movieId === card.id ? card : savedMovie));
       })
       .catch((err) => {
         console.log(err);
@@ -148,7 +146,7 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 savedMovies={savedMovies}
-                onCardLike={handleCardLike}
+                onCardLike={handleSaveMovie}
                 onCardDelete={handleCardDelete}
               />
             }

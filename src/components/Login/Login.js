@@ -53,10 +53,11 @@ function Login({ onLogin }) {
               minLength={4}
               maxLength={200}
               required
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.email}</span>
             )}
           </div>
           <div className="form__value">
@@ -77,7 +78,7 @@ function Login({ onLogin }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.password}</span>
             )}
           </div>
         </fieldset>

@@ -8,17 +8,13 @@ export function handleCalculateDuration(mins) {
   }
 }
 
-export function filterDuration(allMovies) {
-  return allMovies.filter((card) => card.duration < 40);
+export function filterDuration(arr) {
+  return arr.filter((card) => card.duration < 40);
 }
 
-export function searchMovies(arr, input, short) {
+export function searchKeyWord(arr, input) {
   const filteredArray = arr.filter((card) => {
     return card.nameRU.toLowerCase().includes(input.toLowerCase());
   });
-  if (short) {
-    return filterDuration(filteredArray);
-  } else {
-    return filteredArray;
-  }
+  return filteredArray;
 }

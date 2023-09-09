@@ -57,7 +57,7 @@ function Register({ onRegister }) {
               onChange={handleChange}
             />
             {showErrors.name && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.name}</span>
             )}
           </div>
           <div className="form__value">
@@ -71,12 +71,13 @@ function Register({ onRegister }) {
               name="email"
               required
               placeholder="Введите Email"
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
               minLength={4}
               maxLength={200}
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.email}</span>
             )}
           </div>
           <div className="form__value">
@@ -95,7 +96,7 @@ function Register({ onRegister }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.password}</span>
             )}
           </div>
         </fieldset>

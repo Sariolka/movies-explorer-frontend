@@ -5,101 +5,120 @@ import SearchForm from "../SearchForm/SearchForm.js";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
-import { searchMovies } from "../../utils/utils";
-import { filterDuration } from "../../utils/utils";
+import { searchKeyWord, filterDuration } from "../../utils/utils";
 import { moviesApi } from "../../utils/MoviesApi";
 
-function Movies({ loggedIn, onCardLike, savedMovies }) {
+function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   const [isLoading, setIsLoading] = useState(false);
-
-  const [foundInputMovies, setFoundInputMovies] = useState([]); //найденные по ключевому слову фильмы
-  const [filteredCheckboxMovies, setFilteredCheckboxMovies] = useState([]); //фильмы, отфильтрованные чекбоксом
-
-  const [input, setInput] = useState(""); // стейт инпута
-  const [isOn, setIsOn] = useState(false); //стейт чекбокса
+  const [foundInputMovies, setFoundInputMovies] = useState([]);
+  const [filteredCheckboxMovies, setFilteredCheckboxMovies] = useState([]);
+  const [isOn, setIsOn] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    const foundMovies = localStorage.getItem("foundMovies");
-    const checkbox = localStorage.getItem("shortMovies");
-    const inputSearch = localStorage.getItem("inputSearch");
-    if (foundMovies) {
-      setFilteredCheckboxMovies(JSON.parse(foundMovies));
-    } else if (checkbox) {
-      setIsOn(true);
-    } else if (inputSearch) {
-      setInput(inputSearch);
-      console.log(input);
-    }
-  }, []);
-
-  useEffect(() => {
-    //загрузка фильмов с сервера при входе в приложение
-    if (loggedIn) {
-      moviesApi
-        .getMovies()
-        .then((allMovies) => {
-          localStorage.setItem("allMovies", JSON.stringify(allMovies));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      localStorage.setItem("allMovies", JSON.stringify([]));
-    }
+    moviesApi
+      .getMovies()
+      .then((allMovies) => {
+        localStorage.setItem("allMovies", JSON.stringify(allMovies));
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(true);
+      });
   }, [loggedIn]);
 
-  function handleSearchMovies(keyWord, isOn) {
-    if (!keyWord) return;
-    console.log(keyWord);
-    const allMovies = JSON.parse(localStorage.getItem("allMovies")); //достаем весь массив фильмов
-    const moviesList = searchMovies(allMovies, keyWord, isOn); //ищем в нем фильмы по ключевому слову
+  function handleSearchMovies(movies, keyWord, short) {
+    const moviesList = searchKeyWord(movies, keyWord);
+    setFoundInputMovies(moviesList);
+    setFilteredCheckboxMovies(short ? filterDuration(moviesList) : moviesList);
 
-    setFoundInputMovies(moviesList); // выводим на страницу найденное
-
-    setFilteredCheckboxMovies(isOn ? filterDuration(moviesList) : moviesList); //фильтруем по чекбоксу найденное
     localStorage.setItem("foundMovies", JSON.stringify(moviesList));
-    localStorage.setItem("allMovies", JSON.stringify(allMovies));
+    localStorage.setItem("allMovies", JSON.stringify(movies));
     localStorage.setItem("inputSearch", keyWord);
-    localStorage.setItem("shortMovies", !isOn);
+    localStorage.setItem("shortMovies", isOn);
   }
 
   function handleFilterMovies() {
     setIsOn(!isOn);
+    !isOn
+      ? setFilteredCheckboxMovies(filterDuration(foundInputMovies))
+      : setFilteredCheckboxMovies(foundInputMovies);
 
-    if (!isOn) {
-      if (filterDuration(foundInputMovies).length === 0) {
-        setFilteredCheckboxMovies(filterDuration(foundInputMovies));
-      } else {
-        setFilteredCheckboxMovies(filterDuration(foundInputMovies));
-      }
-    } else {
-      setFilteredCheckboxMovies(foundInputMovies);
-    }
     localStorage.setItem("shortMovies", !isOn);
   }
+
+  function onSearchMovies(keyWord) {
+    if (localStorage.getItem("allMovies")) {
+      const allMovies = JSON.parse(localStorage.getItem("allMovies"));
+      handleSearchMovies(allMovies, keyWord, isOn);
+    } else {
+      moviesApi
+        .getMovies()
+        .then((allMovies) => {
+          handleSearchMovies(allMovies, keyWord, isOn);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem("shortMovies")) {
+      setIsOn(true);
+    } else {
+      setIsOn(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("foundMovies")) {
+      const foundInputMovies = JSON.parse(localStorage.getItem("foundMovies"));
+      setFoundInputMovies(foundInputMovies);
+      if (localStorage.getItem("shortMovies")) {
+        setFilteredCheckboxMovies(filterDuration(foundInputMovies));
+      } else {
+        setFilteredCheckboxMovies(foundInputMovies);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("inputSearch")) {
+      if (filteredCheckboxMovies.length === 0) {
+        setError(true);
+      } else {
+        setError(false);
+      }
+    } else {
+      setError(false);
+    }
+  }, [filteredCheckboxMovies]);
 
   return (
     <main className="movies">
       <Header loggedIn={loggedIn} />
       <SearchForm
-        onSearchMovies={handleSearchMovies}
+        onSearchMovies={onSearchMovies}
         handleToggle={handleFilterMovies}
-        input={input}
         isOn={isOn}
       />
       {isLoading ? (
         <Preloader />
       ) : (
         <MoviesCardList
-          buttonTitle={"Сохранить"}
           filteredCheckboxMovies={filteredCheckboxMovies}
           onCardLike={onCardLike}
           savedMovies={savedMovies}
+          error={error}
         />
       )}
-
       <Footer />
     </main>
   );
 }
+
 export default Movies;

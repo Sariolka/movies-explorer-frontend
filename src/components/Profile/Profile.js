@@ -1,31 +1,28 @@
-import {useState, useEffect, useContext} from "react";
+import { useState, useEffect, useContext } from "react";
 import "./Profile.css";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
-import { useNavigate } from "react-router-dom";
+
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Profile({ loggedIn, onChange, onSignOut }) {
-  const navigate = useNavigate();
   const currentUser = useContext(CurrentUserContext);
   const {
     formValues,
     isValid,
     handleChange,
     showErrors,
-    resetForm,
+    // resetForm,
     setFormValues,
   } = useValidation({});
   const [isChanged, setIsChanged] = useState(false);
-  const notValid = !isValid;
-
+  const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-resetForm();
+    if (currentUser)
       setFormValues({ name: currentUser.name, email: currentUser.email });
-     
-  }, [loggedIn, currentUser, navigate]);
+  }, [loggedIn, currentUser, setFormValues]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,13 +30,27 @@ resetForm();
       name: formValues.name,
       email: formValues.email,
     });
-    setIsChanged(false);
+    setIsChanged(!isChanged);
+    setShowText(true);
   }
 
-  const handleChangeProfile = (e) => {
-    e.preventDefault();
-    setIsChanged(true);
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setShowText();
+    }, 9000);
+  }, [handleSubmit]);
+
+  function handleCheckValues() {
+    const isSame =
+      currentUser.name === formValues.name &&
+      currentUser.email === formValues.email;
+    return isSame;
+  }
+
+  function handleChangeProfile() {
+    setIsChanged(isChanged);
+    setShowText(false);
+  }
 
   return (
     <section className="profile">
@@ -49,7 +60,7 @@ resetForm();
       </nav>
       <div className="profile__container">
         <h2 className="profile__title">
-          {`Привет, ${currentUser &&  currentUser.name}!`}{" "}
+          {`Привет, ${currentUser && currentUser.name}!`}{" "}
         </h2>
         <form
           className="profile__form"
@@ -61,7 +72,7 @@ resetForm();
               Имя
               <input
                 className={`profile__input ${
-                  showErrors.name && "profile__input_type_invalid"
+                  !isValid && showErrors.name && "profile__input_type_invalid"
                 }`}
                 type="text"
                 name="name"
@@ -71,21 +82,30 @@ resetForm();
                 placeholder="Имя"
                 value={formValues.name || ""}
                 onChange={handleChange}
+                disabled={!isChanged}
               />
+              {showErrors.name && (
+                <span className="profile__error">{showErrors.name}</span>
+              )}
             </label>
-            <label className="profile__label" htmlFor="email"> 
+            <label className="profile__label" htmlFor="email">
               E-mail
               <input
                 className={`profile__input ${
-                  showErrors.email && "profile__input_type_invalid"
+                  !isValid && showErrors.email && "profile__input_type_invalid"
                 }`}
                 type="email"
                 name="email"
                 required
                 placeholder="Email"
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
                 value={formValues.email || ""}
                 onChange={handleChange}
+                disabled={!isChanged}
               />
+              {showErrors.email && (
+                <span className="profile__error">{showErrors.email}</span>
+              )}
             </label>
           </div>
           <div className="profile__buttons">
@@ -95,8 +115,9 @@ resetForm();
                   className="profile__button-edit"
                   onClick={handleChangeProfile}
                 >
-                  Редактировать
+                  {showText ? "Данные успешно изменены" : "Редактировать"}
                 </button>
+
                 <button className="profile__button-logout" onClick={onSignOut}>
                   Выйти из аккаунта
                 </button>
@@ -104,10 +125,12 @@ resetForm();
             ) : (
               <button
                 className={`profile__button-submit ${
-                  !isValid && "profile__button-submit_inactive"
+                  !isValid || handleCheckValues()
+                    ? "profile__button-submit_inactive"
+                    : "profile__button-submit"
                 }`}
                 onClick={handleSubmit}
-                disabled={notValid}
+                disabled={!isValid || handleCheckValues()}
               >
                 Сохранить
               </button>

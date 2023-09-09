@@ -1,25 +1,37 @@
 import { useEffect, useState } from "react";
-import useValidation from "../../hooks/useValidation";
+import { useLocation } from "react-router-dom";
 import "./SearchForm.css";
 import Toggle from "../Toggle/Toggle";
 
-function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
-  const { formValues, handleChange, setFormValues } = useValidation({});
+function SearchForm({ onSearchMovies, handleToggle, isOn }) {
   const [error, setError] = useState(false);
+  const [input, setInput] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
-    setFormValues({ search: input });
-  }, [input, setFormValues]);
+    if (
+      location.pathname === "/movies" &&
+      localStorage.getItem("inputSearch")
+    ) {
+      const keyWord = localStorage.getItem("inputSearch");
+      setInput(keyWord);
+    }
+  }, [location]);
+
+  function handleChange(e) {
+    setInput(e.target.value);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (formValues.search.trim().length === 0) {
+    if (input.trim().length === 0) {
       setError(true);
     } else {
       setError(false);
-      onSearchMovies(formValues.search);
+      onSearchMovies(input);
     }
   }
+
   return (
     <div className="search">
       <form className="search__form">
@@ -29,7 +41,7 @@ function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
             name="search"
             type="text"
             placeholder="Фильм"
-            value={formValues.search || ""}
+            value={input || ""}
             onChange={handleChange}
             minLength={2}
             maxLength={100}
@@ -39,7 +51,7 @@ function SearchForm({ onSearchMovies, handleToggle, input, isOn }) {
             Найти
           </button>
         </div>
-        <Toggle handleToggle={handleToggle} isChecked={isOn} />{" "}
+        <Toggle handleToggle={handleToggle} isOn={isOn} />{" "}
         {error && (
           <span className="search__text-error">
             {"Нужно ввести ключевое слово"}

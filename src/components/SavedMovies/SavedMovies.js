@@ -11,8 +11,21 @@ function SavedMovies({ loggedIn }) {
   return (
     <main className="movies-saved">
       <Header loggedIn={loggedIn} />
-      <SearchForm />
-      {isLoading ? <Preloader /> : <MoviesCardList />}
+      <SearchForm
+        onSearchMovies={onSearchMovies}
+        handleToggle={handleFilterMovies}
+        isOn={isOn}
+      />
+      {isLoading ? (
+        <Preloader />
+      ) : (
+        <MoviesCardList
+          filteredCheckboxMovies={filteredCheckboxMovies}
+          onCardLike={onCardLike}
+          savedMovies={savedMovies}
+          error={error}
+        />
+      )}
       <Footer />
     </main>
   );
