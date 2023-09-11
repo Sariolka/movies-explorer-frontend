@@ -17,6 +17,7 @@
   line-height: normal;
   margin: 0;
   align-self: center;
+  max-width: 240px;
 }
 
 .movie__duration {
@@ -70,7 +71,7 @@
   aspect-ratio: 270/151;
   width: 270px;
   background-size: contain;
-background-position: center;
+  background-position: center;
 }
 
 @media screen and (max-width: 980px) {

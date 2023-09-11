@@ -67,7 +67,7 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   }
 
   useEffect(() => {
-    if (localStorage.getItem("shortMovies")) {
+    if (localStorage.getItem("shortMovies") === "true") {
       setIsOn(true);
     } else {
       setIsOn(false);
@@ -78,7 +78,7 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
     if (localStorage.getItem("foundMovies")) {
       const foundInputMovies = JSON.parse(localStorage.getItem("foundMovies"));
       setFoundInputMovies(foundInputMovies);
-      if (localStorage.getItem("shortMovies")) {
+      if (localStorage.getItem("shortMovies") === "true") {
         setFilteredCheckboxMovies(filterDuration(foundInputMovies));
       } else {
         setFilteredCheckboxMovies(foundInputMovies);
@@ -114,6 +114,7 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
           onCardLike={onCardLike}
           savedMovies={savedMovies}
           error={error}
+          onCardDelete={onCardDelete}
         />
       )}
       <Footer />

@@ -20,9 +20,8 @@ function Profile({ loggedIn, onChange, onSignOut }) {
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-    if (currentUser)
       setFormValues({ name: currentUser.name, email: currentUser.email });
-  }, [loggedIn, currentUser, setFormValues]);
+  }, [loggedIn, currentUser]);
 
   function handleSubmit(e) {
     e.preventDefault();

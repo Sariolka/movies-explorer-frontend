@@ -1,11 +1,10 @@
-import React from "react";
 import "./MoviesCard.css";
 import { useLocation } from "react-router-dom";
 import { handleCalculateDuration } from "../../utils/utils";
 
 function MoviesCard({ card, onCardLike, onCardDelete, savedMovies }) {
   const location = useLocation();
-  const isLiked = savedMovies.some((card) => card.movieId === card.id);
+  const isLiked = savedMovies.some((i) => i.movieId === card.id);
   const cardLikeButtonClassName = `movie__like ${
     isLiked && "movie__like_active"
   }`;

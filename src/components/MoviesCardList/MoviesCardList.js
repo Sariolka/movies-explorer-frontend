@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
@@ -10,6 +11,9 @@ function MoviesCardList({
   error,
 }) {
   const [renderedMovies, setRenderedMovies] = useState(0);
+  const [addedMovies, setAddedMovies] = useState([]);
+  const location = useLocation();
+
   function handleResizeMovies() {
     const windowWidth = window.innerWidth;
     if (windowWidth >= 1280) {
@@ -47,25 +51,39 @@ function MoviesCardList({
     };
   }, []);
 
-  const cardsList = filteredCheckboxMovies
-    .slice(0, renderedMovies)
-    .map((card) => (
-      <MoviesCard
-        key={card.id || card._id}
-        card={card}
-        onCardLike={onCardLike}
-        onCardDelete={onCardDelete}
-        savedMovies={savedMovies}
-      />
-    ));
+  const cardsList = addedMovies.map((card) => (
+    <MoviesCard
+      key={card.id || card._id}
+      card={card}
+      onCardLike={onCardLike}
+      onCardDelete={onCardDelete}
+      savedMovies={savedMovies}
+    />
+  ));
+
+  useEffect(() => {
+    if (location.pathname === "/movies") {
+      setAddedMovies(filteredCheckboxMovies.slice(0, renderedMovies));
+    }
+  }, [filteredCheckboxMovies, renderedMovies]);
+
+  useEffect(() => {
+    if (location.pathname === "/saved-movies") {
+      setAddedMovies(savedMovies.slice(0, renderedMovies));
+    }
+  }, [savedMovies, renderedMovies]);
 
   return (
     <section className="movies-cards" aria-label="Список фильмов">
-      {error && <span className="movies__cards-error">Ничего не найдено</span>}
+      {error && <span className="movies-cards__error">Ничего не найдено</span>}
       <ul className="movies-cards__list">{cardsList}</ul>
       <button
         className={
-          filteredCheckboxMovies.length > renderedMovies
+          location.pathname === "/movies"
+            ? filteredCheckboxMovies.length > renderedMovies
+              ? "movies-cards__button-more"
+              : "movies-cards__button-more_hidden"
+            : savedMovies.length > renderedMovies
             ? "movies-cards__button-more"
             : "movies-cards__button-more_hidden"
         }

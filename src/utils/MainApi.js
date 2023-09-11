@@ -12,8 +12,9 @@ class MainApi {
   register({ name, email, password }) {
     return fetch(`${this.url}/signup`, {
       method: "POST",
-      headers: this.headers,
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ name, email, password }),
     }).then((res) => this._getResponse(res));
   }
@@ -21,33 +22,42 @@ class MainApi {
   authorize({ email, password }) {
     return fetch(`${this.url}/signin`, {
       method: "POST",
-      headers: this.headers,
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ email, password }),
     }).then((res) => this._getResponse(res));
   }
 
-  getUserInfo() {
+  getContent(token) {
     return fetch(`${this.url}/users/me`, {
       method: "GET",
-      headers: this.headers,
-      credentials: "include",
-    }).then((res) => this._getResponse(res));
-  }
-
-  getSavedMovies() {
-    return fetch(`${this.url}/movies`, {
-      method: "GET",
-      headers: this.headers,
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     }).then((res) => this._getResponse(res));
   }
 
   editUserProfile({ name, email }) {
     return fetch(`${this.url}/users/me`, {
       method: "PATCH",
-      headers: this.headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
       body: JSON.stringify({ name, email }),
+    }).then((res) => this._getResponse(res));
+  }
+
+  getSavedMovies() {
+    return fetch(`${this.url}/movies`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      credentials: "include",
     }).then((res) => this._getResponse(res));
   }
 
@@ -55,7 +65,11 @@ class MainApi {
     if (!isLiked) {
       return fetch(`${this.url}/movies`, {
         method: "POST",
-        headers: this.headers,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        credentials: "include",
         body: JSON.stringify({
           country: card.country,
           director: card.director,
@@ -73,18 +87,21 @@ class MainApi {
     }
   }
 
-  deleteCard(card) {
-    return fetch(`${this.url}/movies/${card.id}`, {
+  deleteMovie(movieId) {
+    return fetch(`${this.url}/movies/${movieId}`, {
       method: "DELETE",
-      headers: this.headers,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      credentials: "include",
     }).then((res) => this._getResponse(res));
   }
 }
 
 export const mainApi = new MainApi({
-  url: "http://api.sariola.diploma.nomoreparties.co",
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-    "Content-Type": "application/json",
-  },
+  url: "http://localhost:3001",
+  headers: {},
 });
+//"http://localhost:3001"
+//http://api.sariola.diploma.nomoreparties.co
