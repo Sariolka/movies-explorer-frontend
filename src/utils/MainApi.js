@@ -61,30 +61,28 @@ class MainApi {
     }).then((res) => this._getResponse(res));
   }
 
-  saveMovie(card, isLiked) {
-    if (!isLiked) {
-      return fetch(`${this.url}/movies`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          country: card.country,
-          director: card.director,
-          duration: card.duration,
-          year: card.year,
-          description: card.description,
-          image: `https://api.nomoreparties.co${card.image.url}`,
-          trailerLink: card.trailerLink,
-          thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
-          movieId: card.id,
-          nameRU: card.nameRU,
-          nameEN: card.nameEN,
-        }),
-      }).then((res) => this._getResponse(res));
-    }
+  saveMovie(card) {
+    return fetch(`${this.url}/movies`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      credentials: "include",
+      body: JSON.stringify({
+        country: card.country,
+        director: card.director,
+        duration: card.duration,
+        year: card.year,
+        description: card.description,
+        image: `https://api.nomoreparties.co${card.image.url}`,
+        trailerLink: card.trailerLink,
+        thumbnail: `https://api.nomoreparties.co${card.image.formats.thumbnail.url}`,
+        movieId: card.id,
+        nameRU: card.nameRU,
+        nameEN: card.nameEN,
+      }),
+    }).then((res) => this._getResponse(res));
   }
 
   deleteMovie(movieId) {

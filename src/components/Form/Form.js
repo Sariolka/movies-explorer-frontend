@@ -9,6 +9,7 @@ function Form({
   link,
   onSubmit,
   isDisabled,
+  span,
 }) {
   return (
     <form
@@ -18,16 +19,19 @@ function Form({
     >
       <h2 className="form__title">{title}</h2>
       {children}
-      <button
-        type="submit"
-        className={`form__button-submit ${
-          !isDisabled ? "form__button-submit" : "form__button-submit_inactive"
-        }`}
-        disabled={isDisabled}
-      >
-        {buttonTitle}
-      </button>
-      {link}
+      <div className="form__container">
+        {span}
+        <button
+          type="submit"
+          className={`form__button-submit ${
+            !isDisabled ? "form__button-submit" : "form__button-submit_inactive"
+          }`}
+          disabled={isDisabled}
+        >
+          {buttonTitle}
+        </button>
+        {link}
+      </div>
     </form>
   );
 }

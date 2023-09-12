@@ -1,11 +1,10 @@
-import React from "react";
 import "./Register.css";
 import Form from "../Form/Form";
 import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Register({ onRegister }) {
+function Register({ onRegister, errorMessage }) {
   const { formValues, handleChange, isValid, showErrors } = useValidation({});
 
   function handleSubmit(e) {
@@ -37,6 +36,7 @@ function Register({ onRegister }) {
         isValid={isValid}
         onSubmit={handleSubmit}
         isDisabled={!isValid}
+        span={<span className="form__input-error">{errorMessage}</span>}
       >
         <fieldset className={`form__fieldset form__fieldset-reg`}>
           <div className="form__value">

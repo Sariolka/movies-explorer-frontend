@@ -13,13 +13,16 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import { mainApi } from "../../utils/MainApi";
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   /*  USER*/
+  useEffect(() => {
+    setErrorMessage("");
+  }, [navigate]);
 
   function handleRegister({ name, email, password }) {
     mainApi
@@ -28,7 +31,13 @@ function App() {
         handleLogin({ email, password });
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err);
+        if (err === "Ошибка: 409") {
+          setErrorMessage("Пользователь с таким email уже существует.");
+        }
+        if (err === "Ошибка: 500") {
+          setErrorMessage("При регистрации пользователя произошла ошибка.");
+        }
       });
   }
 
@@ -43,25 +52,33 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        if (err === "Ошибка: 401") {
+          setErrorMessage("Вы ввели неправильный логин или пароль.");
+        }
+        if (err === "Ошибка: 500") {
+          setErrorMessage(
+            "При авторизации произошла ошибка. Переданный токен некорректен."
+          );
+        }
       });
   }
 
   function handleCheckToken() {
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
-      mainApi
-        .getContent(token)
-        .then((user) => {
-          setLoggedIn(true);
-          setCurrentUser({ name: user.name, email: user.email });
-          console.log(user);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoggedIn(false);
-          setCurrentUser(null);
-        });
-    }
+    //if (localStorage.getItem("token")) {
+    const token = localStorage.getItem("token");
+    mainApi
+      .getContent(token)
+      .then((user) => {
+        setLoggedIn(true);
+        setCurrentUser({ name: user.name, email: user.email });
+        console.log(user);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoggedIn(false);
+        setCurrentUser(null);
+      });
+    //  }
   }
 
   useEffect(() => {
@@ -104,34 +121,41 @@ function App() {
 
   /* Movies */
 
-  function handleMovieSave(card) {
+  function toggleMovieLike(card) {
     const isLiked = savedMovies.some(
       (savedMovie) => savedMovie.movieId === card.id
     );
-
-    mainApi
-      .saveMovie(card, isLiked)
-      .then((newMovie) => {
-        loadSavedMovies();
-        console.log(newMovie);
-        setSavedMovies([newMovie, ...savedMovies]);
-
-        console.log(newMovie);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!isLiked) {
+      mainApi
+        .saveMovie(card)
+        .then((newMovie) => {
+          setSavedMovies([newMovie, ...savedMovies]);
+          loadSavedMovies();
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      const isLikedMovie = savedMovies.find((i) => i.movieId === card.id)._id;
+      mainApi
+        .deleteMovie(isLikedMovie)
+        .then(() => {
+          setSavedMovies((state) => state.filter((i) => i.movieId !== card.id));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 
   function handleMovieDelete(card) {
-    console.log(card);
     mainApi
       .deleteMovie(card._id)
       .then(() => {
-        loadSavedMovies();
         setSavedMovies((savedMovies) =>
           savedMovies.filter((i) => i.movieId !== card.movieId)
         );
+        loadSavedMovies();
       })
       .catch((err) => {
         console.log(err);
@@ -167,7 +191,7 @@ function App() {
                 element={Movies}
                 loggedIn={loggedIn}
                 savedMovies={savedMovies}
-                onCardLike={handleMovieSave}
+                onCardLike={toggleMovieLike}
                 onCardDelete={handleMovieDelete}
               />
             }
@@ -197,7 +221,11 @@ function App() {
           <Route
             path="/signin"
             element={
-              loggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />
+              loggedIn ? (
+                <Navigate to="/" />
+              ) : (
+                <Login onLogin={handleLogin} errorMessage={errorMessage} />
+              )
             }
           />
           <Route
@@ -206,7 +234,10 @@ function App() {
               loggedIn ? (
                 <Navigate to="/" />
               ) : (
-                <Register onRegister={handleRegister} />
+                <Register
+                  onRegister={handleRegister}
+                  errorMessage={errorMessage}
+                />
               )
             }
           />

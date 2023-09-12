@@ -3,53 +3,42 @@ import "./SavedMovies.css";
 import Header from "../Header/Header";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import Preloader from "../Preloader/Preloader";
 import Footer from "../Footer/Footer";
 import { filterDuration, searchKeyWord } from "../../utils/utils";
 
 function SavedMovies({ loggedIn, savedMovies, onCardDelete, error }) {
-  const [searchedSavedMovies, setSearchedSavedMovies] = useState([]);
-  // const [filterSavedMovies, setFilterSavedMovies] = useState([]);
   const [isOn, setIsOn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [filterSavedMovies, setFilterSavedMovies] = useState(savedMovies);
+  const [keyWord, setKeyWord] = useState("");
+
+  function handleSearchMovies(keyWord) {
+    setKeyWord(keyWord);
+  }
 
   function handleFilterMovies() {
-    setIsOn((i) => !i);
-  }
-
-  function onSearchMovies(keyWord) {
-    setSearchedSavedMovies(searchKeyWord(savedMovies, keyWord));
+    setIsOn(!isOn);
   }
 
   useEffect(() => {
-    setSearchedSavedMovies(savedMovies);
-  }, [savedMovies]);
-
-  useEffect(() => {
-    if (!isOn) {
-      setSearchedSavedMovies(filterDuration(savedMovies));
-    } else {
-      setSearchedSavedMovies(savedMovies);
-    }
-  }, [isOn]);
+    const moviesSavedList = searchKeyWord(savedMovies, keyWord);
+    setFilterSavedMovies(
+      isOn ? filterDuration(moviesSavedList) : moviesSavedList
+    );
+  }, [savedMovies, keyWord, isOn]);
 
   return (
     <main className="movies-saved">
       <Header loggedIn={loggedIn} />
       <SearchForm
-        onSearchMovies={onSearchMovies}
+        onSearchMovies={handleSearchMovies}
         handleToggle={handleFilterMovies}
         isOn={isOn}
       />
-      {isLoading ? (
-        <Preloader />
-      ) : (
-        <MoviesCardList
-          savedMovies={savedMovies}
-          error={error}
-          onCardDelete={onCardDelete}
-        />
-      )}
+      <MoviesCardList
+        savedMovies={filterSavedMovies}
+        error={error}
+        onCardDelete={onCardDelete}
+      />
       <Footer />
     </main>
   );

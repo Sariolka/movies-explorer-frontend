@@ -48,6 +48,7 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   }
 
   function onSearchMovies(keyWord) {
+    setIsLoading(true);
     if (localStorage.getItem("allMovies")) {
       const allMovies = JSON.parse(localStorage.getItem("allMovies"));
       handleSearchMovies(allMovies, keyWord, isOn);

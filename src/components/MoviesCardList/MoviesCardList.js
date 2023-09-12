@@ -75,7 +75,12 @@ function MoviesCardList({
 
   return (
     <section className="movies-cards" aria-label="Список фильмов">
-      {error && <span className="movies-cards__error">Ничего не найдено</span>}
+      {error && (
+        <span className="movies-cards__error">{"Ничего не найдено"}</span>
+      )}
+      {location.pathname === "/saved-movies" && savedMovies.length === 0 && (
+        <span className="movies-cards__error">{"Нет сохраненных фильмов"}</span>
+      )}
       <ul className="movies-cards__list">{cardsList}</ul>
       <button
         className={

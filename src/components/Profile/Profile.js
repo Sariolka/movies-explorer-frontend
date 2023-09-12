@@ -20,7 +20,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
   const [showText, setShowText] = useState(false);
 
   useEffect(() => {
-      setFormValues({ name: currentUser.name, email: currentUser.email });
+    setFormValues({ name: currentUser.name, email: currentUser.email });
   }, [loggedIn, currentUser]);
 
   function handleSubmit(e) {
@@ -36,7 +36,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
   useEffect(() => {
     setTimeout(() => {
       setShowText();
-    }, 9000);
+    }, 9999);
   }, [handleSubmit]);
 
   function handleCheckValues() {
@@ -63,7 +63,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
         </h2>
         <form
           className="profile__form"
-          isValid={!isValid}
+          isValid={isValid}
           onSubmit={handleSubmit}
         >
           <div className="profile__value">
@@ -81,7 +81,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
                 placeholder="Имя"
                 value={formValues.name || ""}
                 onChange={handleChange}
-                disabled={!isChanged}
+                disabled={!isChanged && !isValid}
               />
               {showErrors.name && (
                 <span className="profile__error">{showErrors.name}</span>
@@ -114,7 +114,9 @@ function Profile({ loggedIn, onChange, onSignOut }) {
                   className="profile__button-edit"
                   onClick={handleChangeProfile}
                 >
-                  {showText ? "Данные успешно изменены" : "Редактировать"}
+                  {showText
+                    ? "Данные успешно изменены. Отредактировать?"
+                    : "Редактировать"}
                 </button>
 
                 <button className="profile__button-logout" onClick={onSignOut}>
