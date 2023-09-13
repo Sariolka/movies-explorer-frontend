@@ -57,7 +57,7 @@ function Login({ onLogin, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">{showErrors.email}</span>
+              <span className="form__error">Что-то пошло не так...</span>
             )}
           </div>
           <div className="form__value">
@@ -78,7 +78,7 @@ function Login({ onLogin, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">{showErrors.password}</span>
+              <span className="form__error">Что-то пошло не так...</span>
             )}
           </div>
         </fieldset>

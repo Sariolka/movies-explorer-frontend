@@ -57,7 +57,7 @@ function Register({ onRegister, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.name && (
-              <span className="form__error">{showErrors.name}</span>
+              <span className="form__error">Что-то пошло не так...</span>
             )}
           </div>
           <div className="form__value">
@@ -77,7 +77,7 @@ function Register({ onRegister, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">{showErrors.email}</span>
+              <span className="form__error">Что-то пошло не так...</span>
             )}
           </div>
           <div className="form__value">
@@ -96,7 +96,7 @@ function Register({ onRegister, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">{showErrors.password}</span>
+              <span className="form__error">Что-то пошло не так...</span>
             )}
           </div>
         </fieldset>

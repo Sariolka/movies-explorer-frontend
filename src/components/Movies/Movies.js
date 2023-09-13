@@ -15,18 +15,6 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   const [isOn, setIsOn] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    moviesApi
-      .getMovies()
-      .then((allMovies) => {
-        localStorage.setItem("allMovies", JSON.stringify(allMovies));
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(true);
-      });
-  }, [loggedIn]);
-
   function handleSearchMovies(movies, keyWord, short) {
     const moviesList = searchKeyWord(movies, keyWord);
     setFoundInputMovies(moviesList);
@@ -48,15 +36,16 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   }
 
   function onSearchMovies(keyWord) {
-    setIsLoading(true);
     if (localStorage.getItem("allMovies")) {
       const allMovies = JSON.parse(localStorage.getItem("allMovies"));
       handleSearchMovies(allMovies, keyWord, isOn);
     } else {
+      setIsLoading(true);
       moviesApi
         .getMovies()
         .then((allMovies) => {
           handleSearchMovies(allMovies, keyWord, isOn);
+          localStorage.setItem("allMovies", JSON.stringify(allMovies));
         })
         .catch((err) => {
           console.log(err);
