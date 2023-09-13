@@ -9,6 +9,6 @@ Pull request https://github.com/Sariolka/movies-explorer-frontend/pull/2
 
 IP 158.160.47.233
 
-Frontend https://api.sariola.diploma.nomoreparties.co
+Frontend https://sariola.diploma.nomoreparties.co
 
-Backend https://sariola.diploma.nomoreparties.co
+Backend https://api.sariola.diploma.nomoreparties.co
