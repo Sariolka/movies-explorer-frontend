@@ -98,8 +98,6 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: "http://localhost:3001",
+  url: "https://api.sariolka.students.nomoredomains.xyz",
   headers: {},
 });
-//"http://localhost:3001"
-//http://api.sariola.diploma.nomoreparties.co
