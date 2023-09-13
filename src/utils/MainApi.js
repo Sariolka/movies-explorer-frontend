@@ -98,6 +98,6 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: "https://api.sariolka.students.nomoredomains.xyz",
+  url: "https://api.sariola.diploma.nomoreparties.co",
   headers: {},
 });
