@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Login({ onLogin, errorMessage }) {
+function Login({ onLogin, errorMessage, isDisableButton }) {
   const { formValues, handleChange, isValid, showErrors } = useValidation({});
 
   function handleSubmit(e) {
@@ -34,7 +34,7 @@ function Login({ onLogin, errorMessage }) {
         link={link}
         isValid={isValid}
         onSubmit={handleSubmit}
-        isDisabled={!isValid}
+        isDisabled={!isValid || isDisableButton}
         span={<span className="form__input-error">{errorMessage}</span>}
       >
         <fieldset className={`form__fieldset form__fieldset-log`}>
@@ -57,7 +57,7 @@ function Login({ onLogin, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.email}</span>
             )}
           </div>
           <div className="form__value">
@@ -78,7 +78,7 @@ function Login({ onLogin, errorMessage }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.password}</span>
             )}
           </div>
         </fieldset>

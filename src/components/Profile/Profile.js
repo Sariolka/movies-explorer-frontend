@@ -6,16 +6,10 @@ import useValidation from "../../hooks/useValidation";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ loggedIn, onChange, onSignOut }) {
+function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
   const currentUser = useContext(CurrentUserContext);
-  const {
-    formValues,
-    isValid,
-    handleChange,
-    showErrors,
-    // resetForm,
-    setFormValues,
-  } = useValidation({});
+  const { formValues, isValid, handleChange, showErrors, setFormValues } =
+    useValidation({});
   const [isChanged, setIsChanged] = useState(false);
   const [showText, setShowText] = useState(false);
 
@@ -32,12 +26,6 @@ function Profile({ loggedIn, onChange, onSignOut }) {
     setIsChanged(!isChanged);
     setShowText(true);
   }
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowText();
-    }, 9999);
-  }, [handleSubmit]);
 
   function handleCheckValues() {
     const isSame =
@@ -81,7 +69,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
                 placeholder="Имя"
                 value={formValues.name || ""}
                 onChange={handleChange}
-                disabled={!isChanged && !isValid}
+                disabled={!isChanged}
               />
               {showErrors.name && (
                 <span className="profile__error">{showErrors.name}</span>
@@ -108,6 +96,7 @@ function Profile({ loggedIn, onChange, onSignOut }) {
             </label>
           </div>
           <div className="profile__buttons">
+            span={<span className="profile__input-error">{errorMessage}</span>}
             {!isChanged ? (
               <>
                 <button
@@ -115,7 +104,9 @@ function Profile({ loggedIn, onChange, onSignOut }) {
                   onClick={handleChangeProfile}
                 >
                   {showText
-                    ? "Данные успешно изменены. Отредактировать?"
+                    ? errorMessage
+                      ? "Данные не изменены. Редактировать?"
+                      : "Данные успешно изменены. Отредактировать?"
                     : "Редактировать"}
                 </button>
 

@@ -17,6 +17,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isDisableButton, setIsDisableButton] = useState(false);
   const navigate = useNavigate();
 
   /*  USER*/
@@ -25,12 +26,14 @@ function App() {
   }, [navigate]);
 
   function handleRegister({ name, email, password }) {
+    setIsDisableButton(true);
     mainApi
       .register({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
       })
       .catch((err) => {
+        setIsDisableButton(false);
         console.log(err);
         if (err === "Ошибка: 409") {
           setErrorMessage("Пользователь с таким email уже существует.");
@@ -42,6 +45,7 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
+    setIsDisableButton(true);
     mainApi
       .authorize({ email, password })
       .then((user) => {
@@ -51,6 +55,7 @@ function App() {
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
+        setIsDisableButton(false);
         console.log(err);
         if (err === "Ошибка: 401") {
           setErrorMessage("Вы ввели неправильный логин или пароль.");
@@ -64,21 +69,21 @@ function App() {
   }
 
   function handleCheckToken() {
-    //if (localStorage.getItem("token")) {
-    const token = localStorage.getItem("token");
-    mainApi
-      .getContent(token)
-      .then((user) => {
-        setLoggedIn(true);
-        setCurrentUser({ name: user.name, email: user.email });
-        console.log(user);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoggedIn(false);
-        setCurrentUser(null);
-      });
-    //  }
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      mainApi
+        .getContent(token)
+        .then((user) => {
+          setLoggedIn(true);
+          setCurrentUser({ name: user.name, email: user.email });
+          console.log(user);
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoggedIn(false);
+          setCurrentUser(null);
+        });
+    }
   }
 
   useEffect(() => {
@@ -112,10 +117,19 @@ function App() {
     mainApi
       .editUserProfile({ name, email })
       .then((user) => {
-        setCurrentUser(user);
+        if (user) {
+          setCurrentUser(user);
+          setErrorMessage("");
+        }
       })
       .catch((err) => {
         console.log(err);
+        if (!err === "Ошибка: 409") {
+          setErrorMessage("Пользователь с таким email уже существует.");
+        }
+        if (err === "Ошибка: 500") {
+          setErrorMessage("При обновлении профиля произошла ошибка.");
+        }
       });
   }
 
@@ -130,7 +144,6 @@ function App() {
         .saveMovie(card)
         .then((newMovie) => {
           setSavedMovies([newMovie, ...savedMovies]);
-          loadSavedMovies();
         })
         .catch((err) => {
           console.log(err);
@@ -155,7 +168,6 @@ function App() {
         setSavedMovies((savedMovies) =>
           savedMovies.filter((i) => i.movieId !== card.movieId)
         );
-        loadSavedMovies();
       })
       .catch((err) => {
         console.log(err);
@@ -215,6 +227,7 @@ function App() {
                 loggedIn={loggedIn}
                 onSignOut={handleSignOut}
                 onChange={editUserProfile}
+                errorMessage={errorMessage}
               />
             }
           />
@@ -224,7 +237,11 @@ function App() {
               loggedIn ? (
                 <Navigate to="/" />
               ) : (
-                <Login onLogin={handleLogin} errorMessage={errorMessage} />
+                <Login
+                  onLogin={handleLogin}
+                  errorMessage={errorMessage}
+                  isDisableButton={isDisableButton}
+                />
               )
             }
           />
@@ -237,6 +254,7 @@ function App() {
                 <Register
                   onRegister={handleRegister}
                   errorMessage={errorMessage}
+                  isDisableButton={isDisableButton}
                 />
               )
             }
