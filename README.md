@@ -4,9 +4,11 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?node-id=891%3A3857&mod
 
 
 ## Ссылки на проект
+Pull request https://github.com/Sariolka/movies-explorer-frontend/pull/2  
+
 
 IP 158.160.47.233
 
-Frontend https://sariolka.student.nomoredomains.xyz
+Frontend https://sariola.diploma.nomoreparties.co
 
-Backend https://api.sariolka.students.nomoredomains.xyz
+Backend https://api.sariola.diploma.nomoreparties.co
