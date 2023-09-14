@@ -1,11 +1,12 @@
 import "./Login.css";
+import { useEffect } from "react";
 import Form from "../Form/Form";
 import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
 function Login({ onLogin, errorMessage, isDisableButton }) {
-  const { formValues, handleChange, isValid, showErrors } = useValidation({});
+  const { formValues, handleChange, isValid, showErrors, resetForm } = useValidation({});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,6 +15,10 @@ function Login({ onLogin, errorMessage, isDisableButton }) {
       password: formValues.password,
     });
   }
+
+  useEffect(() => {
+    resetForm();
+  }, []);
 
   const link = (
     <p className="form__span">

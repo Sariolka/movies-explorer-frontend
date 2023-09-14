@@ -100,4 +100,4 @@ class MainApi {
 export const mainApi = new MainApi({
   url: "https://api.sariola.diploma.nomoreparties.co",
   headers: {},
-}); //http://localhost:3001https://api.sariola.diploma.nomoreparties.co
+}); //http://localhost:3001 https://api.sariola.diploma.nomoreparties.co
