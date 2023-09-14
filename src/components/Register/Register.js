@@ -1,17 +1,11 @@
 import "./Register.css";
-import {  useEffect } from 'react';
 import Form from "../Form/Form";
 import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Register({ onRegister, errorMessage, isDisableButton }) {
-  const { formValues, handleChange, isValid, showErrors, resetForm } = useValidation({});
-
-  
-  useEffect(() => {
-    resetForm();
-  }, []);
+function Register({ onRegister, errorMessage }) {
+  const { formValues, handleChange, isValid, showErrors } = useValidation({});
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -41,7 +35,7 @@ function Register({ onRegister, errorMessage, isDisableButton }) {
         link={link}
         isValid={isValid}
         onSubmit={handleSubmit}
-        isDisabled={!isValid || isDisableButton}
+        isDisabled={!isValid}
         span={<span className="form__input-error">{errorMessage}</span>}
       >
         <fieldset className={`form__fieldset form__fieldset-reg`}>

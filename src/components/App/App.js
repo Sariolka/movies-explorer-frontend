@@ -17,23 +17,21 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
-  const [isDisableButton, setIsDisableButton] = useState(false);
   const navigate = useNavigate();
 
   /*  USER*/
+
   useEffect(() => {
     setErrorMessage("");
   }, [navigate]);
 
   function handleRegister({ name, email, password }) {
-    setIsDisableButton(true);
     mainApi
       .register({ name, email, password })
       .then(() => {
         handleLogin({ email, password });
       })
       .catch((err) => {
-        setIsDisableButton(false);
         console.log(err);
         if (err === "Ошибка: 409") {
           setErrorMessage("Пользователь с таким email уже существует.");
@@ -45,7 +43,6 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-    setIsDisableButton(true);
     mainApi
       .authorize({ email, password })
       .then((user) => {
@@ -55,7 +52,6 @@ function App() {
         navigate("/movies", { replace: true });
       })
       .catch((err) => {
-        setIsDisableButton(false);
         console.log(err);
         if (err === "Ошибка: 401") {
           setErrorMessage("Вы ввели неправильный логин или пароль.");
@@ -235,11 +231,7 @@ function App() {
               loggedIn ? (
                 <Navigate to="/" />
               ) : (
-                <Login
-                  onLogin={handleLogin}
-                  errorMessage={errorMessage}
-                  isDisableButton={isDisableButton}
-                />
+                <Login onLogin={handleLogin} errorMessage={errorMessage} />
               )
             }
           />
@@ -252,7 +244,6 @@ function App() {
                 <Register
                   onRegister={handleRegister}
                   errorMessage={errorMessage}
-                  isDisableButton={isDisableButton}
                 />
               )
             }
