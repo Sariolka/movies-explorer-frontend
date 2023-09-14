@@ -117,10 +117,8 @@ function App() {
     mainApi
       .editUserProfile({ name, email })
       .then((user) => {
-        if (user) {
-          setCurrentUser(user);
-          setErrorMessage("");
-        }
+        setCurrentUser(user);
+        setErrorMessage("");
       })
       .catch((err) => {
         console.log(err);
