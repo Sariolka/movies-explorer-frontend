@@ -33,10 +33,10 @@ function Profile({
     });
     setIsChanged(!isChanged);
   }
-  useEffect(() => {resetText();
-    resetErrorMessage()},[])
-
-
+  useEffect(() => {
+    resetText();
+    resetErrorMessage();
+  }, [resetErrorMessage, resetText]);
 
   function handleChangeProfile() {
     setIsChanged(isChanged);
