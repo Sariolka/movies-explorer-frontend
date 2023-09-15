@@ -9,32 +9,42 @@ class MainApi {
     return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  register({ name, email, password }) {
+  register( {name, email, password} ) {
     return fetch(`${this.url}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify( {name, email, password }),
     }).then((res) => this._getResponse(res));
   }
 
-  authorize({ email, password }) {
+  authorize( {email, password} ) {
     return fetch(`${this.url}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify( {email, password} ),
     }).then((res) => this._getResponse(res));
   }
 
-  getContent(token) {
+  checkToken(token) {
     return fetch(`${this.url}/users/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
+      },
+    }).then((res) => this._getResponse(res));
+  }
+
+  getUserInfo() {
+    return fetch(`${this.url}/users/me`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     }).then((res) => this._getResponse(res));
   }
@@ -98,6 +108,6 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: "https://api.sariola.diploma.nomoreparties.co",
+  url: "http://localhost:3001",
   headers: {},
-}); //http://localhost:3001 https://api.sariola.diploma.nomoreparties.co
+}); // https://api.sariola.diploma.nomoreparties.co

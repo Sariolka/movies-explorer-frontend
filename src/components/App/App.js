@@ -15,41 +15,39 @@ import { mainApi } from "../../utils/MainApi";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+
+
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
+  const [isSuccess, setIsSuccess] = useState("");
   const navigate = useNavigate();
 
   /*  USER*/
-
-  useEffect(() => {
-    setErrorMessage("");
-  }, [navigate]);
-
-  function handleRegister({ name, email, password }) {
-    mainApi
-      .register({ name, email, password })
-      .then(() => {
-        handleLogin({ email, password });
+useEffect(() => {
+    if(loggedIn) {
+      Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
+      .then(([res, savedMovies]) => {
+        setCurrentUser(res);
+        console.log(res, 'user')
+        setSavedMovies(savedMovies);
       })
       .catch((err) => {
         console.log(err);
-        if (err === "Ошибка: 409") {
-          setErrorMessage("Пользователь с таким email уже существует.");
-        }
-        if (err === "Ошибка: 500") {
-          setErrorMessage("При регистрации пользователя произошла ошибка.");
-        }
-      });
-  }
+      })
+    }
+  }, [loggedIn]); 
 
-  function handleLogin({ email, password }) {
+  function handleLogin({email, password}) {
     mainApi
-      .authorize({ email, password })
+      .authorize({email, password})
       .then((user) => {
-        setLoggedIn(true);
-        localStorage.setItem("token", user.token);
-        setCurrentUser(user);
+      localStorage.setItem("token", user.token);
+        console.log(user.name)
+        console.log(user.email)
+        handleCheckToken()
+       //  setLoggedIn(true);
         navigate("/movies", { replace: true });
+     
       })
       .catch((err) => {
         console.log(err);
@@ -64,30 +62,75 @@ function App() {
       });
   }
 
-  function handleCheckToken() {
-    if (localStorage.getItem("token")) {
-      const token = localStorage.getItem("token");
-      mainApi
-        .getContent(token)
-        .then((user) => {
-          setLoggedIn(true);
-          setCurrentUser({ name: user.name, email: user.email });
-          console.log(user);
-        })
-        .catch((err) => {
-          console.log(err);
-          setLoggedIn(false);
-          setCurrentUser(null);
-        });
-    }
+function handleCheckToken() {
+    if (localStorage.getItem('token')) {
+    const token = localStorage.getItem("token");
+    mainApi
+      .checkToken(token)
+      .then((user) => {
+        if(user){
+          console.log(user.name)
+        setCurrentUser({ name: user.name, email: user.email });
+        setLoggedIn(true);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoggedIn(false);
+        setCurrentUser(null);
+      });}
   }
-
   useEffect(() => {
     handleCheckToken();
   }, []);
 
+function editUserProfile({ name, email }) {
+  return  mainApi
+      .editUserProfile({ name, email })
+      .then((user) => {
+        setCurrentUser(user);
+        console.log(user)
+        setErrorMessage("");
+        setIsSuccess("Данные успешно обновлены");
+      })
+      
+      .catch((err) => {
+        setIsSuccess(" ")
+        console.log(err);
+        if (!err === "Ошибка: 409") {
+          setErrorMessage("Пользователь с таким email уже существует.");
+        }
+        if (err === "Ошибка: 500") {
+          setErrorMessage("При обновлении профиля произошла ошибка.");
+        }
+      });
+  }
+
   useEffect(() => {
-    handleCheckToken();
+   setErrorMessage("");
+  }, [navigate]);
+
+  function handleRegister({ name, email, password }) {
+    mainApi
+      .register( { name, email, password })
+      .then(() => {
+        handleLogin( {email,password} );
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err === "Ошибка: 409") {
+          setErrorMessage("Пользователь с таким email уже существует.");
+        }
+        if (err === "Ошибка: 500") {
+          setErrorMessage("При регистрации пользователя произошла ошибка.");
+        }
+      });
+  }
+
+ 
+
+
+  useEffect(() => {
     PageNotFound
       ? navigate()
       : navigate(
@@ -99,32 +142,17 @@ function App() {
         JSON.stringify(window.location.pathname)
       );
     };
-  }, [navigate]);
+  }, [navigate]); 
 
   function handleSignOut() {
     setLoggedIn(false);
-    setCurrentUser(null);
     localStorage.clear();
     localStorage.removeItem("token");
     navigate("/", { replace: true });
   }
 
-  function editUserProfile({ name, email }) {
-    mainApi
-      .editUserProfile({ name, email })
-      .then((user) => {
-        setCurrentUser(user);
-        setErrorMessage("");
-      })
-      .catch((err) => {
-        console.log(err);
-        if (!err === "Ошибка: 409") {
-          setErrorMessage("Пользователь с таким email уже существует.");
-        }
-        if (err === "Ошибка: 500") {
-          setErrorMessage("При обновлении профиля произошла ошибка.");
-        }
-      });
+  function setFalse() {
+    setIsSuccess("");
   }
 
   /* Movies */
@@ -168,7 +196,7 @@ function App() {
       });
   }
 
-  function loadSavedMovies() {
+ /* function loadSavedMovies() {
     mainApi
       .getSavedMovies()
       .then((savedMovies) => {
@@ -183,7 +211,7 @@ function App() {
     if (loggedIn) {
       loadSavedMovies();
     }
-  }, [loggedIn]);
+  }, [loggedIn]); */
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -222,6 +250,8 @@ function App() {
                 onSignOut={handleSignOut}
                 onChange={editUserProfile}
                 errorMessage={errorMessage}
+                isSuccess={isSuccess}
+                setFalse={setFalse}
               />
             }
           />

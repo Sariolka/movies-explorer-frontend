@@ -1,21 +1,23 @@
 import { useState, useEffect, useContext } from "react";
 import "./Profile.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
 
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
+
+function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFalse}) {
   const currentUser = useContext(CurrentUserContext);
   const { formValues, isValid, handleChange, showErrors, setFormValues } =
     useValidation({});
   const [isChanged, setIsChanged] = useState(false);
-  const [showText, setShowText] = useState(false);
-
+  
   useEffect(() => {
-    setFormValues({ name: currentUser.name, email: currentUser.email });
-  }, [loggedIn, currentUser]);
+    if (currentUser) {
+      setFormValues({name: currentUser.name, email: currentUser.email});
+    }
+  }, [currentUser, setFormValues]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -24,21 +26,24 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
       email: formValues.email,
     });
     setIsChanged(!isChanged);
-    setShowText(true);
   }
 
-  function handleCheckValues() {
+  //useEffect(() => {setFalse()}
+//,[])
+
+
+  function handleChangeProfile() {
+    setIsChanged(isChanged);
+    //setFalse()
+  }
+
+ /* function handleCheckValues() {
     const isSame =
       currentUser.name === formValues.name &&
       currentUser.email === formValues.email;
     return isSame;
   }
-
-  function handleChangeProfile() {
-    setIsChanged(isChanged);
-    setShowText(false);
-  }
-
+*/
   return (
     <section className="profile">
       <nav className="profile__nav">
@@ -67,9 +72,10 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
                 maxLength="40"
                 required
                 placeholder="Имя"
-                value={formValues.name || ""}
+                value={formValues.name || ''}
                 onChange={handleChange}
                 disabled={!isChanged}
+                defaultValue={currentUser.name}
               />
               {showErrors.name && (
                 <span className="profile__error">{showErrors.name}</span>
@@ -86,9 +92,10 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
                 required
                 placeholder="Email"
                 pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                value={formValues.email || ""}
+                value={formValues.email || ''} 
                 onChange={handleChange}
                 disabled={!isChanged}
+                defaultValue={currentUser.email}
               />
               {showErrors.email && (
                 <span className="profile__error">{showErrors.email}</span>
@@ -97,17 +104,14 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
           </div>
           <div className="profile__buttons">
             span={<span className="profile__input-error">{errorMessage}</span>}
+            span={<span className="profile__text-success">{isSuccess}</span>}
             {!isChanged ? (
               <>
                 <button
                   className="profile__button-edit"
                   onClick={handleChangeProfile}
                 >
-                  {showText
-                    ? errorMessage
-                      ? "Данные не изменены. Редактировать?"
-                      : "Данные успешно изменены. Отредактировать?"
-                    : "Редактировать"}
+                  Редактировать
                 </button>
 
                 <button className="profile__button-logout" onClick={onSignOut}>
@@ -117,12 +121,14 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage }) {
             ) : (
               <button
                 className={`profile__button-submit ${
-                  !isValid || handleCheckValues()
+                  !isValid || (currentUser.name === formValues.name &&
+                  currentUser.email === formValues.email) //handleCheckValues() 
                     ? "profile__button-submit_inactive"
                     : "profile__button-submit"
                 }`}
                 onClick={handleSubmit}
-                disabled={!isValid || handleCheckValues()}
+                disabled={!isValid || (currentUser.name === formValues.name &&
+                  currentUser.email === formValues.email)/*handleCheckValues()*/}
               >
                 Сохранить
               </button>
