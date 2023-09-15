@@ -5,17 +5,22 @@ import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
 
-
-
-function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFalse}) {
+function Profile({
+  loggedIn,
+  onChange,
+  onSignOut,
+  errorMessage,
+  isSuccess,
+  setFalse,
+}) {
   const currentUser = useContext(CurrentUserContext);
   const { formValues, isValid, handleChange, showErrors, setFormValues } =
     useValidation({});
   const [isChanged, setIsChanged] = useState(false);
-  
+
   useEffect(() => {
     if (currentUser) {
-      setFormValues({name: currentUser.name, email: currentUser.email});
+      setFormValues({ name: currentUser.name, email: currentUser.email });
     }
   }, [currentUser, setFormValues]);
 
@@ -28,22 +33,11 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFa
     setIsChanged(!isChanged);
   }
 
-  //useEffect(() => {setFalse()}
-//,[])
-
-
   function handleChangeProfile() {
     setIsChanged(isChanged);
-    //setFalse()
+    setFalse();
   }
 
- /* function handleCheckValues() {
-    const isSame =
-      currentUser.name === formValues.name &&
-      currentUser.email === formValues.email;
-    return isSame;
-  }
-*/
   return (
     <section className="profile">
       <nav className="profile__nav">
@@ -72,10 +66,9 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFa
                 maxLength="40"
                 required
                 placeholder="Имя"
-                value={formValues.name || ''}
+                value={formValues.name || ""}
                 onChange={handleChange}
                 disabled={!isChanged}
-                defaultValue={currentUser.name}
               />
               {showErrors.name && (
                 <span className="profile__error">{showErrors.name}</span>
@@ -92,10 +85,9 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFa
                 required
                 placeholder="Email"
                 pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
-                value={formValues.email || ''} 
+                value={formValues.email || ""}
                 onChange={handleChange}
                 disabled={!isChanged}
-                defaultValue={currentUser.email}
               />
               {showErrors.email && (
                 <span className="profile__error">{showErrors.email}</span>
@@ -110,25 +102,35 @@ function Profile({ loggedIn, onChange, onSignOut, errorMessage, isSuccess, setFa
                 <button
                   className="profile__button-edit"
                   onClick={handleChangeProfile}
+                  type="submit"
                 >
                   Редактировать
                 </button>
 
-                <button className="profile__button-logout" onClick={onSignOut}>
+                <button
+                  className="profile__button-logout"
+                  onClick={onSignOut}
+                  type="button"
+                >
                   Выйти из аккаунта
                 </button>
               </>
             ) : (
               <button
                 className={`profile__button-submit ${
-                  !isValid || (currentUser.name === formValues.name &&
-                  currentUser.email === formValues.email) //handleCheckValues() 
+                  !isValid ||
+                  (currentUser.name === formValues.name &&
+                    currentUser.email === formValues.email)
                     ? "profile__button-submit_inactive"
                     : "profile__button-submit"
                 }`}
                 onClick={handleSubmit}
-                disabled={!isValid || (currentUser.name === formValues.name &&
-                  currentUser.email === formValues.email)/*handleCheckValues()*/}
+                disabled={
+                  !isValid ||
+                  (currentUser.name === formValues.name &&
+                    currentUser.email === formValues.email)
+                }
+                type="submit"
               >
                 Сохранить
               </button>

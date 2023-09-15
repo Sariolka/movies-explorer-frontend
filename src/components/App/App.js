@@ -16,38 +16,36 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
 
-
   const [savedMovies, setSavedMovies] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState("");
   const navigate = useNavigate();
 
   /*  USER*/
-useEffect(() => {
-    if(loggedIn) {
+  useEffect(() => {
+    if (loggedIn) {
       Promise.all([mainApi.getUserInfo(), mainApi.getSavedMovies()])
-      .then(([res, savedMovies]) => {
-        setCurrentUser(res);
-        console.log(res, 'user')
-        setSavedMovies(savedMovies);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
+        .then(([res, savedMovies]) => {
+          setCurrentUser(res);
+          console.log(res, "user");
+          setSavedMovies(savedMovies);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
-  }, [loggedIn]); 
+  }, [loggedIn]);
 
-  function handleLogin({email, password}) {
+  function handleLogin({ email, password }) {
     mainApi
-      .authorize({email, password})
+      .authorize({ email, password })
       .then((user) => {
-      localStorage.setItem("token", user.token);
-        console.log(user.name)
-        console.log(user.email)
-        handleCheckToken()
-       //  setLoggedIn(true);
+        localStorage.setItem("token", user.token);
+        console.log(user.name);
+        console.log(user.email);
+        handleCheckToken();
+        //  setLoggedIn(true);
         navigate("/movies", { replace: true });
-     
       })
       .catch((err) => {
         console.log(err);
@@ -62,59 +60,64 @@ useEffect(() => {
       });
   }
 
-function handleCheckToken() {
-    if (localStorage.getItem('token')) {
-    const token = localStorage.getItem("token");
-    mainApi
-      .checkToken(token)
-      .then((user) => {
-        if(user){
-          console.log(user.name)
-        setCurrentUser({ name: user.name, email: user.email });
-        setLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoggedIn(false);
-        setCurrentUser(null);
-      });}
+  function handleCheckToken() {
+    if (localStorage.getItem("token")) {
+      const token = localStorage.getItem("token");
+      mainApi
+        .checkToken(token)
+        .then((user) => {
+          if (user) {
+            console.log(user.name);
+            setCurrentUser({ name: user.name, email: user.email });
+            setLoggedIn(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setLoggedIn(false);
+          setCurrentUser(null);
+        });
+    }
   }
   useEffect(() => {
     handleCheckToken();
   }, []);
 
-function editUserProfile({ name, email }) {
-  return  mainApi
-      .editUserProfile({ name, email })
-      .then((user) => {
-        setCurrentUser(user);
-        console.log(user)
-        setErrorMessage("");
-        setIsSuccess("Данные успешно обновлены");
-      })
-      
-      .catch((err) => {
-        setIsSuccess(" ")
-        console.log(err);
-        if (!err === "Ошибка: 409") {
-          setErrorMessage("Пользователь с таким email уже существует.");
-        }
-        if (err === "Ошибка: 500") {
-          setErrorMessage("При обновлении профиля произошла ошибка.");
-        }
-      });
+  function editUserProfile({ name, email }) {
+    if (email === currentUser.email && name === currentUser.name) {
+      return;
+    } else {
+      return mainApi
+        .editUserProfile({ name, email })
+        .then((res) => {
+          setCurrentUser({ name: res.name, email: res.email });
+          console.log(res);
+          setErrorMessage("");
+          setIsSuccess("Данные успешно обновлены");
+        })
+
+        .catch((err) => {
+          setIsSuccess(" ");
+          console.log(err);
+          if (!err === "Ошибка: 409") {
+            setErrorMessage("Пользователь с таким email уже существует.");
+          }
+          if (err === "Ошибка: 500") {
+            setErrorMessage("При обновлении профиля произошла ошибка.");
+          }
+        });
+    }
   }
 
   useEffect(() => {
-   setErrorMessage("");
+    setErrorMessage("");
   }, [navigate]);
 
   function handleRegister({ name, email, password }) {
     mainApi
-      .register( { name, email, password })
+      .register({ name, email, password })
       .then(() => {
-        handleLogin( {email,password} );
+        handleLogin({ email, password });
       })
       .catch((err) => {
         console.log(err);
@@ -126,9 +129,6 @@ function editUserProfile({ name, email }) {
         }
       });
   }
-
- 
-
 
   useEffect(() => {
     PageNotFound
@@ -142,7 +142,7 @@ function editUserProfile({ name, email }) {
         JSON.stringify(window.location.pathname)
       );
     };
-  }, [navigate]); 
+  }, [navigate]);
 
   function handleSignOut() {
     setLoggedIn(false);
@@ -195,23 +195,6 @@ function editUserProfile({ name, email }) {
         console.log(err);
       });
   }
-
- /* function loadSavedMovies() {
-    mainApi
-      .getSavedMovies()
-      .then((savedMovies) => {
-        setSavedMovies(savedMovies);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  useEffect(() => {
-    if (loggedIn) {
-      loadSavedMovies();
-    }
-  }, [loggedIn]); */
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
