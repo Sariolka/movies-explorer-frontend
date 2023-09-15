@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import LogoHeader from "../LogoHeader/LogoHeader";
@@ -15,6 +16,7 @@ function Profile({
   resetErrorMessage,
 }) {
   const currentUser = useContext(CurrentUserContext);
+  const navigate = useNavigate();
   const { formValues, isValid, handleChange, showErrors, setFormValues } =
     useValidation({});
   const [isChanged, setIsChanged] = useState(false);
@@ -36,7 +38,7 @@ function Profile({
   useEffect(() => {
     resetText();
     resetErrorMessage();
-  }, [resetErrorMessage, resetText]);
+  }, [navigate]);
 
   function handleChangeProfile() {
     setIsChanged(isChanged);
