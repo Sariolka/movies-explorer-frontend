@@ -98,6 +98,7 @@ function App() {
 
         .catch((err) => {
           setIsSuccess(" ");
+          setCurrentUser({ name: currentUser.name, email: currentUser.email });
           console.log(err);
           if (!err === "Ошибка: 409") {
             setErrorMessage("Пользователь с таким email уже существует.");
@@ -151,8 +152,11 @@ function App() {
     navigate("/", { replace: true });
   }
 
-  function setFalse() {
+  function resetText() {
     setIsSuccess("");
+  }
+  function resetErrorMessage() {
+    setErrorMessage("");
   }
 
   /* Movies */
@@ -234,7 +238,8 @@ function App() {
                 onChange={editUserProfile}
                 errorMessage={errorMessage}
                 isSuccess={isSuccess}
-                setFalse={setFalse}
+                resetText={resetText}
+                resetErrorMessage={resetErrorMessage}
               />
             }
           />

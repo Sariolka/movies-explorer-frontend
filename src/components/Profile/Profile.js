@@ -11,7 +11,8 @@ function Profile({
   onSignOut,
   errorMessage,
   isSuccess,
-  setFalse,
+  resetText,
+  resetErrorMessage,
 }) {
   const currentUser = useContext(CurrentUserContext);
   const { formValues, isValid, handleChange, showErrors, setFormValues } =
@@ -35,7 +36,8 @@ function Profile({
 
   function handleChangeProfile() {
     setIsChanged(isChanged);
-    setFalse();
+    resetText();
+    resetErrorMessage();
   }
 
   return (
