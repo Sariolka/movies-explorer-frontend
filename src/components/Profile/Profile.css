@@ -26,23 +26,23 @@
 .profile__input-error {
   color: #ff004c;
   text-align: center;
-  font-size: 11px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   position: absolute;
-  left: calc((100% / 2) - 120px);
+  left: calc((100% / 2) - 150px);
 }
 
 .profile__text-success {
   color: #ff004c;
   text-align: center;
-  font-size: 11px;
+  font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
   position: absolute;
-  left: calc((100% / 2) - 78px);
+  left: calc((100% / 2) - 90px);
 }
 
 .profile__nav {
