@@ -17,6 +17,7 @@
   line-height: normal;
   margin: 0;
   align-self: center;
+  max-width: 240px;
 }
 
 .movie__duration {
@@ -64,4 +65,23 @@
   background-image: url(../../images/delete.svg);
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.movie__image {
+  aspect-ratio: 270/151;
+  width: 270px;
+  background-size: contain;
+  background-position: center;
+}
+
+@media screen and (max-width: 980px) {
+  .movie__image {
+    width: 339px;
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .movie__image {
+    width: 300px;
+  }
 }

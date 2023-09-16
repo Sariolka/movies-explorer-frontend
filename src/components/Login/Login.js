@@ -1,11 +1,10 @@
-import React from "react";
 import "./Login.css";
 import Form from "../Form/Form";
 import { Link } from "react-router-dom";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import useValidation from "../../hooks/useValidation";
 
-function Login({ onLogin }) {
+function Login({ onLogin, errorMessage }) {
   const { formValues, handleChange, isValid, showErrors } = useValidation({});
 
   function handleSubmit(e) {
@@ -36,10 +35,11 @@ function Login({ onLogin }) {
         isValid={isValid}
         onSubmit={handleSubmit}
         isDisabled={!isValid}
+        span={<span className="form__input-error">{errorMessage}</span>}
       >
         <fieldset className={`form__fieldset form__fieldset-log`}>
           <div className="form__value">
-            <label className="form__label" for="email">
+            <label className="form__label" htmlFor="email">
               E-mail
             </label>
             <input
@@ -53,14 +53,15 @@ function Login({ onLogin }) {
               minLength={4}
               maxLength={200}
               required
+              pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
               onChange={handleChange}
             />
             {showErrors.email && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.email}</span>
             )}
           </div>
           <div className="form__value">
-            <label className="form__label" for="password">
+            <label className="form__label" htmlFor="password">
               Пароль
             </label>
             <input
@@ -77,7 +78,7 @@ function Login({ onLogin }) {
               onChange={handleChange}
             />
             {showErrors.password && (
-              <span className="form__error">Что-то пошло не так...</span>
+              <span className="form__error">{showErrors.password}</span>
             )}
           </div>
         </fieldset>

@@ -8,8 +8,6 @@ function Navigation({ loggedIn }) {
   const location = useLocation();
   const [isOpenNavMenu, setIsOpenNavMenu] = React.useState(false);
 
-  loggedIn = true;
-
   function togglePopupMenu() {
     setIsOpenNavMenu(!isOpenNavMenu);
   }
@@ -73,7 +71,7 @@ function Navigation({ loggedIn }) {
             </Link>
           </div>
         </>
-      ) : (
+      ) : ( 
         <div className="nav__links">
           <Link to="/signup" className="nav__link-reg">
             Регистрация

@@ -1,19 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Profile.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import LogoHeader from "../LogoHeader/LogoHeader";
 import Navigation from "../Navigation/Navigation";
 import useValidation from "../../hooks/useValidation";
-//import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function Profile({ loggedIn, onChange }) {
-  //const currentUser = React.useContext(CurrentUserContext);
-  const { formValues, isValid, handleChange, showErrors } = useValidation({});
-  const [isChanged, setIsChanged] = React.useState(false);
-  const [name, setName] = React.useState("Виталий");
-  const [email, setEmail] = React.useState("pochta@yandex.ru");
+function Profile({
+  loggedIn,
+  onChange,
+  onSignOut,
+  errorMessage,
+  isSuccess,
+  resetText,
+  resetErrorMessage,
+}) {
+  const currentUser = useContext(CurrentUserContext);
+  const navigate = useNavigate();
+  const { formValues, isValid, handleChange, showErrors, setFormValues } =
+    useValidation({});
+  const [isChanged, setIsChanged] = useState(false);
 
-  const notValid = !isValid;
+  useEffect(() => {
+    if (currentUser) {
+      setFormValues({ name: currentUser.name, email: currentUser.email });
+    }
+  }, [currentUser, setFormValues]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,12 +33,18 @@ function Profile({ loggedIn, onChange }) {
       name: formValues.name,
       email: formValues.email,
     });
+    setIsChanged(!isChanged);
   }
+  useEffect(() => {
+    resetText();
+    resetErrorMessage();
+  }, [navigate]);
 
-  const handleChangeProfile = (e) => {
-    e.preventDefault();
-    setIsChanged(true);
-  };
+  function handleChangeProfile() {
+    setIsChanged(isChanged);
+    resetText();
+    resetErrorMessage();
+  }
 
   return (
     <section className="profile">
@@ -35,18 +53,20 @@ function Profile({ loggedIn, onChange }) {
         <Navigation loggedIn={loggedIn} />
       </nav>
       <div className="profile__container">
-        <h2 className="profile__title">Привет, {name}! </h2>
+        <h2 className="profile__title">
+          {`Привет, ${currentUser && currentUser.name}!`}{" "}
+        </h2>
         <form
           className="profile__form"
-          isValid={!isValid}
+          isValid={isValid}
           onSubmit={handleSubmit}
         >
           <div className="profile__value">
-            <label className="profile__label">
+            <label className="profile__label" htmlFor="name">
               Имя
               <input
                 className={`profile__input ${
-                  showErrors.name && "profile__input_type_invalid"
+                  !isValid && showErrors.name && "profile__input_type_invalid"
                 }`}
                 type="text"
                 name="name"
@@ -54,45 +74,71 @@ function Profile({ loggedIn, onChange }) {
                 maxLength="40"
                 required
                 placeholder="Имя"
-                value={formValues.name || name}
+                value={formValues.name || ""}
                 onChange={handleChange}
+                disabled={!isChanged}
               />
+              {showErrors.name && (
+                <span className="profile__error">{showErrors.name}</span>
+              )}
             </label>
-            <label className="profile__label">
+            <label className="profile__label" htmlFor="email">
               E-mail
               <input
                 className={`profile__input ${
-                  showErrors.email && "profile__input_type_invalid"
+                  !isValid && showErrors.email && "profile__input_type_invalid"
                 }`}
                 type="email"
                 name="email"
                 required
                 placeholder="Email"
-                value={formValues.email || email}
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                value={formValues.email || ""}
                 onChange={handleChange}
+                disabled={!isChanged}
               />
+              {showErrors.email && (
+                <span className="profile__error">{showErrors.email}</span>
+              )}
             </label>
           </div>
           <div className="profile__buttons">
+            span={<span className="profile__input-error">{errorMessage}</span>}
+            span={<span className="profile__text-success">{isSuccess}</span>}
             {!isChanged ? (
               <>
                 <button
                   className="profile__button-edit"
                   onClick={handleChangeProfile}
+                  type="submit"
                 >
                   Редактировать
                 </button>
-                <Link className="profile__button-logout" to="/signin">
+
+                <button
+                  className="profile__button-logout"
+                  onClick={onSignOut}
+                  type="button"
+                >
                   Выйти из аккаунта
-                </Link>
+                </button>
               </>
             ) : (
               <button
                 className={`profile__button-submit ${
-                  !isValid && "profile__button-submit_inactive"
+                  !isValid ||
+                  (currentUser.name === formValues.name &&
+                    currentUser.email === formValues.email)
+                    ? "profile__button-submit_inactive"
+                    : "profile__button-submit"
                 }`}
                 onClick={handleSubmit}
-                disabled={notValid}
+                disabled={
+                  !isValid ||
+                  (currentUser.name === formValues.name &&
+                    currentUser.email === formValues.email)
+                }
+                type="submit"
               >
                 Сохранить
               </button>
