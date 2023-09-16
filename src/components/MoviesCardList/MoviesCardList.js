@@ -76,7 +76,7 @@ function MoviesCardList({
   return (
     <section className="movies-cards" aria-label="Список фильмов">
       {error && (
-        <span className="movies-cards__error">{"Ничего не найдено"}</span>
+        <span className="movies-cards__error">{error}</span>
       )}
       {location.pathname === "/saved-movies" && savedMovies.length === 0 && (
         <span className="movies-cards__error">{"Нет сохраненных фильмов"}</span>

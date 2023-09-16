@@ -49,6 +49,9 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
         })
         .catch((err) => {
           console.log(err);
+          setError(
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          );
         })
         .finally(() => {
           setIsLoading(false);
@@ -79,12 +82,12 @@ function Movies({ loggedIn, onCardLike, savedMovies, onCardDelete }) {
   useEffect(() => {
     if (localStorage.getItem("inputSearch")) {
       if (filteredCheckboxMovies.length === 0) {
-        setError(true);
+        setError("Ничего не найдено");
       } else {
-        setError(false);
+        setError("");
       }
     } else {
-      setError(false);
+      setError("");
     }
   }, [filteredCheckboxMovies]);
 

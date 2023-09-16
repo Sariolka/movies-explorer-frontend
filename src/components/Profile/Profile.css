@@ -42,7 +42,7 @@
   font-weight: 400;
   line-height: normal;
   position: absolute;
-  left: calc((100% / 2) - 90px);
+  left: calc((100% / 2) - 95px);
 }
 
 .profile__nav {
