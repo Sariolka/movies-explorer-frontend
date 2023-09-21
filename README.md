@@ -5,10 +5,8 @@ https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?node-id=891%3A3857&mod
 
 ## Ссылки на проект
 IP 158.160.47.233
-
-Frontend https://sariolka.student.nomoredomains.xyz
-
-Backend https://api.sariolka.students.nomoredomains.xyz
+Frontend https://sariola.diploma.nomoreparties.co
+Backend https://api.sariola.diploma.nomoreparties.co
 
 Финальный проект на веб-факультете в @yandex.practicum.   
 Это сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете.  
