@@ -1,13 +1,4 @@
-
-## Макет 
-Макет Light-1  
-https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?node-id=891%3A3857&mode=dev
-
-## Ссылки на проект
-IP 158.160.47.233  
-Frontend https://sariola.diploma.nomoreparties.co  
-
-Backend https://api.sariola.diploma.nomoreparties.co    
+# Movies  
 
 Финальный проект на веб-факультете в @yandex.practicum.   
 Это сервис, в котором можно найти фильмы по запросу и сохранить в личном кабинете.  
@@ -20,5 +11,15 @@ Backend https://api.sariola.diploma.nomoreparties.co
     * реализованы асинхронные GET- и POST-запросы к API;  
     * проработаны авторизованные и неавторизованные состояния, сохранение фильмов в профиле;  
     * полученные фильмы фильтруются на стороне клиента.  
+    
+## Макет 
+Макет Light-1  
+https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?node-id=891%3A3857&mode=dev
+
+## Ссылки на проект
+IP 158.160.47.233  
+Frontend https://sariola.diploma.nomoreparties.co  
+Backend https://api.sariola.diploma.nomoreparties.co    
+
 
     Инструменты и стек: #HTML #CSS #React #Express #MongoDB #NodeJS #API  #Nginx #JWT #Postman
