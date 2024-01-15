@@ -16,10 +16,21 @@
 Макет Light-1  
 https://www.figma.com/file/6FMWkB94wE7KTkcCgUXtnC/light-1?node-id=891%3A3857&mode=dev
 
-## Ссылки на проект
-IP 158.160.47.233  
-Frontend https://sariola.diploma.nomoreparties.co  
-Backend https://api.sariola.diploma.nomoreparties.co    
+## Инструкция по установке:
 
+Клонировать репозиторий:
+
+`
+git clone git@github.com:Sariolka/movies-explorer-frontend.git
+`
+
+В директории проекта запустить приложение в режиме разработки:
+
+```
+npm install
+npm start
+```  
+   
+##
 
     Инструменты и стек: #HTML #CSS #React #Express #MongoDB #NodeJS #API  #Nginx #JWT #Postman
